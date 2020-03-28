@@ -308,7 +308,7 @@ module type column_tree_builder = {
   val init: ColumnHasher.state -> TreeBuilder.Hasher.state -> state
   val reset: state -> state
   val add_columns: state -> (chunk_size: i32) -> [chunk_size]ColumnHasher.Field.t -> state
-  val finalize: state -> [TreeBuilder.tree_size]TreeBuilder.Hasher.Field.t
+  val finalize: state -> [TreeBuilder.tree_size][TreeBuilder.Hasher.Field.LIMBS]u64
 }
 
 module make_column_tree_builder (ColumnHasher: hasher) (TreeBuilder: tree_builder): column_tree_builder = {
@@ -343,9 +343,12 @@ module make_column_tree_builder (ColumnHasher: hasher) (TreeBuilder: tree_builde
     s with leaves = (copy s.leaves with [s.pos:new_pos] = column_leaves)
       with pos = new_pos
 
-  let finalize (s: state): [TreeBuilder.tree_size]TreeBuilder.Hasher.Field.t =
+
+  let tree_size_in_limbs = TreeBuilder.tree_size * TreeBuilder.Hasher.Field.LIMBS
+  
+  let finalize (s: state): [TreeBuilder.tree_size][TreeBuilder.Hasher.Field.LIMBS]u64 =
     let leaves = map (\i -> TreeBuilder.Hasher.Field.from_u64s (ColumnHasher.Field.to_u64s s.leaves[i])) (iota TreeBuilder.leaves) in
-    (TreeBuilder.build_tree s.tree_hasher_state leaves)
+    map TreeBuilder.Hasher.Field.to_u64s (TreeBuilder.build_tree s.tree_hasher_state leaves)
 }
 
 --------------------------------------------------------------------------------
@@ -414,5 +417,5 @@ entry init (treehasher_arity_tag: ([treehasher.Field.LIMBS]u64))
 entry add_columns (s: ctb.state) (chunk_size: i32) (columns: []u64): ctb.state =
   ctb.add_columns s chunk_size (map colhasher.Field.from_u64s (unflatten chunk_size colhasher.arity  columns))
 
-entry finalize (s: ctb.state): [ctb.TreeBuilder.tree_size]treehasher.Field.t =
+entry finalize (s: ctb.state): [ctb.TreeBuilder.tree_size][treehasher.Field.LIMBS]u64 =
   ctb.finalize s

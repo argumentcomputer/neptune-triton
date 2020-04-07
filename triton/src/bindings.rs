@@ -904,17 +904,6 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct futhark_opaque_arr_t_1d {
-    _unused: [u8; 0],
-}
-extern "C" {
-    pub fn futhark_free_opaque_arr_t_1d(
-        ctx: *mut futhark_context,
-        obj: *mut futhark_opaque_arr_t_1d,
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct futhark_opaque_state {
     _unused: [u8; 0],
 }
@@ -927,7 +916,7 @@ extern "C" {
 extern "C" {
     pub fn futhark_entry_finalize(
         ctx: *mut futhark_context,
-        out0: *mut *mut futhark_opaque_arr_t_1d,
+        out0: *mut *mut futhark_u64_2d,
         in0: *const futhark_opaque_state,
     ) -> ::std::os::raw::c_int;
 }

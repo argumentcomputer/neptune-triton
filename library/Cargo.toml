@@ -17,6 +17,6 @@ path="triton/src/lib.rs"
 
 [features]
 default = ["genfut/sequential_c"]
-sequential-_c = ["genfut/sequential_c"]
+sequential_c = ["genfut/sequential_c"]
 opencl = ["genfut/opencl"]
-no-futhark = ["genfut/no-futhark"]
+no_futhark = ["genfut/no_futhark"]

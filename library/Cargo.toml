@@ -9,7 +9,7 @@ license = "MIT OR Apache-2.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-genfut = { git = "https://github.com/porcuquine/genfut", branch = "libify", default-features=false}
+genfut = "0.1.1"
 
 [lib]
 name="neptune_triton"

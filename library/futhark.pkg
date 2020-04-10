@@ -1,4 +1,4 @@
 require {
-  github.com/porcuquine/fut-ff 0.1.5 #eb7ef2936512f83be611902666ae2a4386fccb9f
+  github.com/porcuquine/fut-ff 0.1.6 #f33e7ed7c35415957590870f5791c0115657ea32
   github.com/athas/vector 0.6.0 #36473256e4834ac9ff31243cceb439c1f79bf1a4
 }

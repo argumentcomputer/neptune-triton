@@ -114,6 +114,9 @@ int64_t *futhark_shape_u64_3d(struct futhark_context *ctx,
 struct futhark_opaque_8fa02cab ;
 int futhark_free_opaque_8fa02cab(struct futhark_context *ctx,
                                  struct futhark_opaque_8fa02cab *obj);
+struct futhark_opaque_9b6df2ea ;
+int futhark_free_opaque_9b6df2ea(struct futhark_context *ctx,
+                                 struct futhark_opaque_9b6df2ea *obj);
 
 /*
  * Entry points
@@ -132,6 +135,10 @@ int futhark_entry_add_columns(struct futhark_context *ctx,
                               struct futhark_opaque_8fa02cab **out0, const
                               struct futhark_opaque_8fa02cab *in0, const
                               int32_t in1, const struct futhark_u64_1d *in2);
+int futhark_entry_hash2(struct futhark_context *ctx,
+                        struct futhark_u64_1d **out0, const
+                        struct futhark_opaque_9b6df2ea *in0, const
+                        struct futhark_u64_1d *in1);
 int futhark_entry_init(struct futhark_context *ctx,
                        struct futhark_opaque_8fa02cab **out0, const
                        struct futhark_u64_1d *in0, const
@@ -144,6 +151,13 @@ int futhark_entry_init(struct futhark_context *ctx,
                        struct futhark_u64_3d *in7, const
                        struct futhark_u64_3d *in8, const
                        struct futhark_u64_3d *in9);
+int futhark_entry_init2(struct futhark_context *ctx,
+                        struct futhark_opaque_9b6df2ea **out0, const
+                        struct futhark_u64_1d *in0, const
+                        struct futhark_u64_2d *in1, const
+                        struct futhark_u64_3d *in2, const
+                        struct futhark_u64_3d *in3, const
+                        struct futhark_u64_3d *in4);
 
 /*
  * Miscellaneous

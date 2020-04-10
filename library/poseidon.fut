@@ -129,11 +129,11 @@ module make_hasher (f: F.field) (p: Params): hasher = {
 
   let make_constants (arity_tag: ([Field.LIMBS]u64)) (round_keys: [rk_count]([Field.LIMBS]u64)) (mds_matrix: matrix ([Field.LIMBS]u64) [width]) (pre_sparse_matrix: matrix ([Field.LIMBS]u64) [width])
   (sparse_matrixes: [sparse_count][sparse_matrix_size][Field.LIMBS]u64): constants Field.t [width] [width_] [rk_count] [sparse_count] =
-    let sparse_matrixes = map make_sparse_matrix (map (map Field.from_u64s) sparse_matrixes) in
-    { arity_tag = Field.from_u64s arity_tag,
-      round_keys = map Field.from_u64s round_keys,
-      mds_matrix = map (map Field.from_u64s) mds_matrix,
-      pre_sparse_matrix = map (map Field.from_u64s) pre_sparse_matrix,
+    let sparse_matrixes = map make_sparse_matrix (map (map Field.mont_from_u64s) sparse_matrixes) in
+    { arity_tag = Field.mont_from_u64s arity_tag,
+      round_keys = map Field.mont_from_u64s round_keys,
+      mds_matrix = map (map Field.mont_from_u64s) mds_matrix,
+      pre_sparse_matrix = map (map Field.mont_from_u64s) pre_sparse_matrix,
       sparse_matrixes }
 
   let reset (s: state): state = s with current_round = 0
@@ -348,7 +348,10 @@ module make_column_tree_builder (ColumnHasher: hasher) (TreeBuilder: tree_builde
   
   let finalize (s: state): [TreeBuilder.tree_size][TreeBuilder.Hasher.Field.LIMBS]u64 =
     let leaves = map (\i -> TreeBuilder.Hasher.Field.from_u64s (ColumnHasher.Field.to_u64s s.leaves[i])) (iota TreeBuilder.leaves) in
-    map TreeBuilder.Hasher.Field.to_u64s (TreeBuilder.build_tree s.tree_hasher_state leaves)
+    let mont_tree = (TreeBuilder.build_tree s.tree_hasher_state leaves) in
+    let tree = map TreeBuilder.Hasher.Field.final_reduce mont_tree in
+    let output = map TreeBuilder.Hasher.Field.mont_to_u64s tree
+    in output
 }
 
 --------------------------------------------------------------------------------
@@ -377,14 +380,31 @@ module t8_2k: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves
 module t8_512m: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_mib 512 }
 module t8_4g: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_gib 4 }
 
+entry init2 (arity_tag: ([p2.Field.LIMBS]u64))
+           (round_keys: [p2.rk_count]([p2.Field.LIMBS]u64))
+           (mds_matrix: matrix ([p2.Field.LIMBS]u64) [p2.width])
+           (pre_sparse_matrix: matrix ([p2.Field.LIMBS]u64) [p2.width])
+           (sparse_matrixes: [p2.sparse_count][p2.sparse_matrix_size]([p2.Field.LIMBS]u64))
+              : p2.state = 
+  let constants = p2.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  p2.init constants
+
+entry hash2 (s: p2.state) (preimage_u64s: [8]u64) : [p2.Field.LIMBS]u64 =
+  let preimage = map p2.Field.mont_from_u64s (unflatten p2.arity p2.Field.LIMBS preimage_u64s) in
+  p2.Field.mont_to_u64s (p2.hash_preimage s (preimage :> [p2.arity]p2.Field.t))
+
+
 let x2 = p2.init p2.blank_constants
-entry simple2 n = tabulate n (\i -> p2.Field.to_u64s (p2.hash_preimage x2 ((replicate 2 (p2.Field.from_u32 (u32.i32 i))) :> [p2.arity]p2.Field.t)))
+entry simple2 n = tabulate n (\i -> p2.Field.mont_to_u64s
+                                    (p2.hash_preimage x2 ((replicate 2 (p2.Field.mont_from_u32 (u32.i32 i)) :> [p2.arity]p2.Field.t))))
 
 let x8 = p8.init p8.blank_constants
-entry simple8 n = tabulate n (\i -> p8.Field.to_u64s (p8.hash_preimage x8 ((replicate 8 (p8.Field.from_u32 (u32.i32 i))) :> [p8.arity]p8.Field.t)))
+entry simple8 n = tabulate n (\i -> p8.Field.mont_to_u64s
+                                    (p8.hash_preimage x8 ((replicate 8 (p8.Field.mont_from_u32 (u32.i32 i)) :> [p8.arity]p8.Field.t))))
 
 let x11 = p11.init p11.blank_constants
-entry simple11 n = tabulate n (\i -> p11.Field.to_u64s (p11.hash_preimage x11 ((replicate 11 (p11.Field.from_u32 (u32.i32 i))) :> [p11.arity]p11.Field.t)))
+entry simple11 n = tabulate n (\i -> p11.Field.mont_to_u64s
+                                     (p11.hash_preimage x11 ((replicate 11 (p11.Field.mont_from_u32 (u32.i32 i)) :> [p11.arity]p11.Field.t))))
 
 --------------------------------------------------------------------------------
 --- Primary interface
@@ -415,7 +435,7 @@ entry init (treehasher_arity_tag: ([treehasher.Field.LIMBS]u64))
   ctb.init (colhasher.init colhasher_constants) (treehasher.init treehasher_constants)
 
 entry add_columns (s: ctb.state) (chunk_size: i32) (columns: []u64): ctb.state =
-  ctb.add_columns s chunk_size (map colhasher.Field.from_u64s (unflatten chunk_size colhasher.arity  columns))
+  ctb.add_columns s chunk_size (map colhasher.Field.mont_from_u64s (unflatten chunk_size colhasher.arity  columns))
 
 entry finalize (s: ctb.state): [ctb.TreeBuilder.tree_size][treehasher.Field.LIMBS]u64 =
   ctb.finalize s

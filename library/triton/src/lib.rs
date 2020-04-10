@@ -98,11 +98,25 @@ unsafe{
 _add_columns(ctx, in0.as_raw_mut(), in1, in2.as_raw_mut(), )
 }}
 
+pub fn hash2(&mut self, in0: FutharkOpaque9B6Df2Ea, in1: Array_u64_1d, ) -> Result<(Array_u64_1d)>
+{
+let ctx = self.ptr();
+unsafe{
+_hash2(ctx, in0.as_raw_mut(), in1.as_raw_mut(), )
+}}
+
 pub fn init(&mut self, in0: Array_u64_1d, in1: Array_u64_2d, in2: Array_u64_3d, in3: Array_u64_3d, in4: Array_u64_3d, in5: Array_u64_1d, in6: Array_u64_2d, in7: Array_u64_3d, in8: Array_u64_3d, in9: Array_u64_3d, ) -> Result<(FutharkOpaque8Fa02Cab)>
 {
 let ctx = self.ptr();
 unsafe{
 _init(ctx, in0.as_raw_mut(), in1.as_raw_mut(), in2.as_raw_mut(), in3.as_raw_mut(), in4.as_raw_mut(), in5.as_raw_mut(), in6.as_raw_mut(), in7.as_raw_mut(), in8.as_raw_mut(), in9.as_raw_mut(), )
+}}
+
+pub fn init2(&mut self, in0: Array_u64_1d, in1: Array_u64_2d, in2: Array_u64_3d, in3: Array_u64_3d, in4: Array_u64_3d, ) -> Result<(FutharkOpaque9B6Df2Ea)>
+{
+let ctx = self.ptr();
+unsafe{
+_init2(ctx, in0.as_raw_mut(), in1.as_raw_mut(), in2.as_raw_mut(), in3.as_raw_mut(), in4.as_raw_mut(), )
 }}
 
 }
@@ -146,12 +160,28 @@ return Err(FutharkError::new(ctx).into());}
 Ok(FutharkOpaque8Fa02Cab::from_ptr(ctx, raw_out0)
 )
 }
+unsafe fn _hash2(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_9b6df2ea, in1: *const bindings::futhark_u64_1d, ) -> Result<(Array_u64_1d)> {
+let mut raw_out0 = std::ptr::null_mut();
+
+if bindings::futhark_entry_hash2(ctx, &mut raw_out0, in0, in1, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok(Array_u64_1d::from_ptr(ctx, raw_out0)
+)
+}
 unsafe fn _init(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_u64_1d, in1: *const bindings::futhark_u64_2d, in2: *const bindings::futhark_u64_3d, in3: *const bindings::futhark_u64_3d, in4: *const bindings::futhark_u64_3d, in5: *const bindings::futhark_u64_1d, in6: *const bindings::futhark_u64_2d, in7: *const bindings::futhark_u64_3d, in8: *const bindings::futhark_u64_3d, in9: *const bindings::futhark_u64_3d, ) -> Result<(FutharkOpaque8Fa02Cab)> {
 let mut raw_out0 = std::ptr::null_mut();
 
 if bindings::futhark_entry_init(ctx, &mut raw_out0, in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, ) != 0 {
 return Err(FutharkError::new(ctx).into());}
 Ok(FutharkOpaque8Fa02Cab::from_ptr(ctx, raw_out0)
+)
+}
+unsafe fn _init2(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_u64_1d, in1: *const bindings::futhark_u64_2d, in2: *const bindings::futhark_u64_3d, in3: *const bindings::futhark_u64_3d, in4: *const bindings::futhark_u64_3d, ) -> Result<(FutharkOpaque9B6Df2Ea)> {
+let mut raw_out0 = std::ptr::null_mut();
+
+if bindings::futhark_entry_init2(ctx, &mut raw_out0, in0, in1, in2, in3, in4, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok(FutharkOpaque9B6Df2Ea::from_ptr(ctx, raw_out0)
 )
 }
 #[derive(Debug)]
@@ -183,6 +213,42 @@ impl FutharkOpaque8Fa02Cab {
 }
 
 impl Drop for FutharkOpaque8Fa02Cab {
+    fn drop(&mut self) {
+        unsafe {
+            self.free_opaque();
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct FutharkOpaque9B6Df2Ea {
+    ptr: *const bindings::futhark_opaque_9b6df2ea,
+    ctx: *mut bindings::futhark_context,
+}
+
+impl FutharkOpaque9B6Df2Ea {
+    pub(crate) unsafe fn as_raw(&self) -> *const bindings::futhark_opaque_9b6df2ea {
+         self.ptr
+    }
+
+    pub(crate) unsafe fn as_raw_mut(&self) -> *mut bindings::futhark_opaque_9b6df2ea {
+         self.ptr as *mut bindings::futhark_opaque_9b6df2ea
+    }
+    pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const bindings::futhark_opaque_9b6df2ea) -> Self
+        where
+        T: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        Self { ptr, ctx }
+    }
+
+    pub(crate) unsafe fn free_opaque(&mut self)
+    {
+        bindings::futhark_free_opaque_9b6df2ea(self.ctx, self.as_raw_mut());
+    }
+}
+
+impl Drop for FutharkOpaque9B6Df2Ea {
     fn drop(&mut self) {
         unsafe {
             self.free_opaque();

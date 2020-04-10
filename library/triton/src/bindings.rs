@@ -913,6 +913,17 @@ extern "C" {
         obj: *mut futhark_opaque_8fa02cab,
     ) -> ::std::os::raw::c_int;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct futhark_opaque_9b6df2ea {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn futhark_free_opaque_9b6df2ea(
+        ctx: *mut futhark_context,
+        obj: *mut futhark_opaque_9b6df2ea,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     pub fn futhark_entry_finalize(
         ctx: *mut futhark_context,
@@ -951,6 +962,14 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn futhark_entry_hash2(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_1d,
+        in0: *const futhark_opaque_9b6df2ea,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     pub fn futhark_entry_init(
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_opaque_8fa02cab,
@@ -964,6 +983,17 @@ extern "C" {
         in7: *const futhark_u64_3d,
         in8: *const futhark_u64_3d,
         in9: *const futhark_u64_3d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_init2(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_opaque_9b6df2ea,
+        in0: *const futhark_u64_1d,
+        in1: *const futhark_u64_2d,
+        in2: *const futhark_u64_3d,
+        in3: *const futhark_u64_3d,
+        in4: *const futhark_u64_3d,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {

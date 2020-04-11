@@ -9,8 +9,7 @@ license = "MIT OR Apache-2.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-#genfut = "0.1.1"
-genfut = { git = "https://github.com/porcuquine/genfut", branch = "fix-opaque-entry" }
+genfut = "0.1.2"
 
 [lib]
 name="neptune_triton"

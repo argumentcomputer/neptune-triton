@@ -434,6 +434,15 @@ entry init (treehasher_arity_tag: ([treehasher.Field.LIMBS]u64))
   let colhasher_constants =   colhasher.make_constants colhasher_arity_tag colhasher_round_keys colhasher_mds_matrix colhasher_pre_sparse_matrix colhasher_sparse_matrixes in
   ctb.init (colhasher.init colhasher_constants) (treehasher.init treehasher_constants)
 
+entry debug_init2 (arity_tag: ([p2.Field.LIMBS]u64))
+               (round_keys: [p2.rk_count]([p2.Field.LIMBS]u64))
+               (mds_matrix: matrix ([p2.Field.LIMBS]u64) [p2.width])
+               (pre_sparse_matrix: matrix ([p2.Field.LIMBS]u64) [p2.width])
+               (sparse_matrixes: [p2.sparse_count][p2.sparse_matrix_size]([p2.Field.LIMBS]u64))
+              : p2.state =
+  let constants = p2.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  x2
+
 entry add_columns (s: ctb.state) (chunk_size: i32) (columns: []u64): ctb.state =
   ctb.add_columns s chunk_size (map colhasher.Field.mont_from_u64s (unflatten chunk_size colhasher.arity  columns))
 

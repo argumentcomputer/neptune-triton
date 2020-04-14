@@ -8,15 +8,14 @@ license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[build-dependencies]
-genfut = {version= "0.1.2", default-features=false, features=["opencl"]}
+[dependencies]
+#genfut = {version= "0.1.2", default-features=false, features=["opencl"]}
+genfut = {git= "https://github.com/porcuquine/genfut", default-features=false, features=["sequential_c"], branch="tweak-library-build"}
 
-[lib]
-name="neptune_triton"
-path="triton/src/lib.rs"
+# [lib]
+# name="neptune_triton"
+# path="triton/src/lib.rs"
 
-[features]
-#default = ["genfut/sequential_c"]
-sequential_c = ["genfut/sequential_c"]
-opencl = ["genfut/opencl"]
-no_futhark = ["genfut/no_futhark"]
+# [[bin]]
+# name="codegen"
+# path="codegen.rs"

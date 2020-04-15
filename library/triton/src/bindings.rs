@@ -998,6 +998,13 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn futhark_entry_test2(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_1d,
+        in0: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     pub fn futhark_entry_debug_init2(
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_opaque_9b6df2ea,

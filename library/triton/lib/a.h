@@ -158,6 +158,9 @@ int futhark_entry_init2(struct futhark_context *ctx,
                         struct futhark_u64_3d *in2, const
                         struct futhark_u64_3d *in3, const
                         struct futhark_u64_3d *in4);
+int futhark_entry_test2(struct futhark_context *ctx,
+                        struct futhark_u64_1d **out0, const
+                        struct futhark_u64_1d *in0);
 int futhark_entry_debug_init2(struct futhark_context *ctx,
                               struct futhark_opaque_9b6df2ea **out0, const
                               struct futhark_u64_1d *in0, const

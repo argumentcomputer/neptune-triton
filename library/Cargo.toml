@@ -10,12 +10,5 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 #genfut = {version= "0.1.2", default-features=false, features=["opencl"]}
-genfut = {git= "https://github.com/porcuquine/genfut", default-features=false, features=["sequential_c"], branch="tweak-library-build"}
-
-# [lib]
-# name="neptune_triton"
-# path="triton/src/lib.rs"
-
-# [[bin]]
-# name="codegen"
-# path="codegen.rs"
+#genfut = {git= "https://github.com/porcuquine/genfut", default-features=false, features=["sequential_c"], branch="tweak-library-build"}
+genfut = {path= "/Users/clwk/porcuquine/genfut", default-features=false, features=["sequential_c"]}

@@ -119,6 +119,13 @@ unsafe{
 _init2(ctx, in0.as_raw_mut(), in1.as_raw_mut(), in2.as_raw_mut(), in3.as_raw_mut(), in4.as_raw_mut(), )
 }}
 
+pub fn test2(&mut self, in0: Array_u64_1d, ) -> Result<(Array_u64_1d)>
+{
+let ctx = self.ptr();
+unsafe{
+_test2(ctx, in0.as_raw_mut(), )
+}}
+
 pub fn debug_init2(&mut self, in0: Array_u64_1d, in1: Array_u64_2d, in2: Array_u64_3d, in3: Array_u64_3d, in4: Array_u64_3d, ) -> Result<(FutharkOpaque9B6Df2Ea)>
 {
 let ctx = self.ptr();
@@ -189,6 +196,14 @@ let mut raw_out0 = std::ptr::null_mut();
 if bindings::futhark_entry_init2(ctx, &mut raw_out0, in0, in1, in2, in3, in4, ) != 0 {
 return Err(FutharkError::new(ctx).into());}
 Ok(FutharkOpaque9B6Df2Ea::from_ptr(ctx, raw_out0)
+)
+}
+unsafe fn _test2(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_u64_1d, ) -> Result<(Array_u64_1d)> {
+let mut raw_out0 = std::ptr::null_mut();
+
+if bindings::futhark_entry_test2(ctx, &mut raw_out0, in0, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok(Array_u64_1d::from_ptr(ctx, raw_out0)
 )
 }
 unsafe fn _debug_init2(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_u64_1d, in1: *const bindings::futhark_u64_2d, in2: *const bindings::futhark_u64_3d, in3: *const bindings::futhark_u64_3d, in4: *const bindings::futhark_u64_3d, ) -> Result<(FutharkOpaque9B6Df2Ea)> {

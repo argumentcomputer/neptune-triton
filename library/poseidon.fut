@@ -394,6 +394,11 @@ entry hash2 (s: p2.state) (preimage_u64s: [8]u64) : [p2.Field.LIMBS]u64 =
   p2.Field.mont_to_u64s (p2.hash_preimage s (preimage :> [p2.arity]p2.Field.t))
 
 
+entry test2 (input_u64s: [12]u64) : [p2.Field.LIMBS]u64 =
+  let input = map p2.Field.mont_from_u64s (unflatten 3 p2.Field.LIMBS input_u64s) in
+  let res = p2.Field.(input[0] * input[1]  + input[2]) in
+  p2.Field.mont_to_u64s res
+
 let x2 = p2.init p2.blank_constants
 entry simple2 n = tabulate n (\i -> p2.Field.mont_to_u64s
                                     (p2.hash_preimage x2 ((replicate 2 (p2.Field.mont_from_u32 (u32.i32 i)) :> [p2.arity]p2.Field.t))))

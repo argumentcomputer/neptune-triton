@@ -9,6 +9,5 @@ license = "MIT OR Apache-2.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-#genfut = {version= "0.1.2", default-features=false, features=["opencl"]}
-#genfut = {git= "https://github.com/porcuquine/genfut", default-features=false, features=["sequential_c"], branch="tweak-library-build"}
-genfut = {path= "/Users/clwk/porcuquine/genfut", default-features=false, features=["sequential_c"]}
+genfut = {git= "https://github.com/porcuquine/genfut", default-features=false, features=["sequential_c"], branch="tweak-library-build"}
+

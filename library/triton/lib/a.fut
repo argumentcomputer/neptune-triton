@@ -148,17 +148,15 @@ module make_hasher (f: F.field) (p: Params): hasher = {
   let result (s: state): Field.t = s.elements[1]
 
   -- Placeholder until Field.square is fixed.
-  let fake_square (x: Field.t): Field.t = Field.(x * x)
+  let naive_square (x: Field.t): Field.t = Field.(x * x)
 
   let quintic_s_box (x: Field.t): Field.t =
-    let x2 = fake_square x in
-    let x4 = fake_square x2 in
-    Field.(x4 * x)
+    let x2 = naive_square x in
+    let x4 = naive_square x2
+    in Field.(x4 * x)
 
   let add_round_key (s: state) (rk_offset: i32) (i: i32) =
-    let elts = s.elements in
-    let round_keys = s.constants.round_keys in
-    Field.(elts[i] + round_keys[rk_offset i32.+ i])
+    Field.(s.elements[i] + s.constants.round_keys[i32.(rk_offset + i)])
 
   -- Could be more generic, but could also use a library. Just target clarity.
   let scalar_product (a: elements) (b: elements) = Field.(reduce (+) zero (map2 (*) a b))
@@ -170,8 +168,8 @@ module make_hasher (f: F.field) (p: Params): hasher = {
     let first = scalar_product elts sm.w_hat
     let rest = map2 (\x y -> Field.(x + y * elts[0]))
                     (elts[1:width] :> [width_]Field.t)
-                    sm.v_rest in
-    ([first] ++ rest) :> elements
+                    sm.v_rest
+    in ([first] ++ rest) :> elements
 
   let apply_round_matrix (s: state): state =
     let elements = if s.current_round == sparse_offset then
@@ -179,10 +177,10 @@ module make_hasher (f: F.field) (p: Params): hasher = {
                    else if (s.current_round > sparse_offset)
                            && (s.current_round < full_half + partial_rounds) then
                         let index = s.current_round - sparse_offset - 1 in
-                        apply_sparse_matrix  s.constants.sparse_matrixes[index] s.elements
+                        apply_sparse_matrix s.constants.sparse_matrixes[index] s.elements
                    else
-                     apply_matrix  s.constants.mds_matrix s.elements in
-      s with elements = elements
+                     apply_matrix s.constants.mds_matrix s.elements
+    in s with elements = elements
 
   let add_full_round_keys (s: state): state =
      s with elements = map (\i -> add_round_key s s.rk_offset i) (iota width)
@@ -194,27 +192,28 @@ module make_hasher (f: F.field) (p: Params): hasher = {
 
   let full_round (s: state): state =
     let elements = map quintic_s_box s.elements in
-    let s = add_full_round_keys s with elements = elements in
-    apply_round_matrix s
+    let s = add_full_round_keys (s with elements = elements)
+    in apply_round_matrix s
       with current_round = s.current_round + 1
 
   let last_full_round (s: state): state =
     let elements = map quintic_s_box s.elements in
-    s with elements = elements
-      with current_round = s.current_round + 1
+    let s = s with elements = elements
+              with current_round = s.current_round + 1
+    in apply_round_matrix s
 
   let partial_round (s: state): state =
     let elements = copy s.elements with [0] = quintic_s_box s.elements[0] in
-    let s = add_partial_round_key s with elements = elements in
-    apply_round_matrix s with current_round = s.current_round + 1
+    let s = add_partial_round_key (s with elements = elements)
+    in apply_round_matrix s with current_round = s.current_round + 1
 
   let hash (s: state): Field.t =
     let s = add_full_round_keys s in
     let s = loop s for _i < full_half do full_round s in
     let s = loop s for _i < partial_rounds do partial_round s in
     let s = loop s for _i < (full_half - 1) do full_round s in
-    let s = last_full_round s in
-    result s
+    let s = last_full_round s
+    in result s
 
   let hash_preimage (s: state) (preimage: [arity]Field.t) =
     hash (set_preimage s preimage)
@@ -345,7 +344,7 @@ module make_column_tree_builder (ColumnHasher: hasher) (TreeBuilder: tree_builde
 
 
   let tree_size_in_limbs = TreeBuilder.tree_size * TreeBuilder.Hasher.Field.LIMBS
-  
+
   let finalize (s: state): [TreeBuilder.tree_size][TreeBuilder.Hasher.Field.LIMBS]u64 =
     let leaves = map (\i -> TreeBuilder.Hasher.Field.from_u64s (ColumnHasher.Field.to_u64s s.leaves[i])) (iota TreeBuilder.leaves) in
     let mont_tree = (TreeBuilder.build_tree s.tree_hasher_state leaves) in
@@ -380,16 +379,18 @@ module t8_2k: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves
 module t8_512m: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_mib 512 }
 module t8_4g: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_gib 4 }
 
+type p2_state = p2.state
+
 entry init2 (arity_tag: ([p2.Field.LIMBS]u64))
            (round_keys: [p2.rk_count]([p2.Field.LIMBS]u64))
            (mds_matrix: matrix ([p2.Field.LIMBS]u64) [p2.width])
            (pre_sparse_matrix: matrix ([p2.Field.LIMBS]u64) [p2.width])
            (sparse_matrixes: [p2.sparse_count][p2.sparse_matrix_size]([p2.Field.LIMBS]u64))
-              : p2.state = 
+              : p2_state =
   let constants = p2.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
   p2.init constants
 
-entry hash2 (s: p2.state) (preimage_u64s: [8]u64) : [p2.Field.LIMBS]u64 =
+entry hash2 (s: p2_state) (preimage_u64s: [8]u64) : [p2.Field.LIMBS]u64 =
   let preimage = map p2.Field.mont_from_u64s (unflatten p2.arity p2.Field.LIMBS preimage_u64s) in
   p2.Field.mont_to_u64s (p2.hash_preimage s (preimage :> [p2.arity]p2.Field.t))
 

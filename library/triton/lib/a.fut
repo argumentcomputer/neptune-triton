@@ -285,7 +285,7 @@ module make_tree_builder (H: hasher) (P: tree_builder_params): tree_builder = {
       while length row > 1 do
       let chunks = assert ((length row) % arity == 0) ((length row) / arity) in
       let new_row = map (\preimage -> (Hasher.hash_preimage s preimage))
-                        (unflatten chunks Hasher.arity base) in
+                        (unflatten chunks Hasher.arity row) in
       (tree with [offset:offset+length new_row] = new_row,
        new_row,
        offset + length new_row)

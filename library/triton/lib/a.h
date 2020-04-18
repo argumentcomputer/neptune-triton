@@ -142,13 +142,11 @@ int futhark_entry_simple2(struct futhark_context *ctx,
 int futhark_entry_add_columns_2k(struct futhark_context *ctx,
                                  struct futhark_opaque_ctb_2k_state **out0,
                                  const struct futhark_opaque_ctb_2k_state *in0,
-                                 const int32_t in1, const
-                                 struct futhark_u64_1d *in2);
+                                 const struct futhark_u64_1d *in1);
 int futhark_entry_add_columns_4g(struct futhark_context *ctx,
                                  struct futhark_opaque_ctb_4g_state **out0,
                                  const struct futhark_opaque_ctb_4g_state *in0,
-                                 const int32_t in1, const
-                                 struct futhark_u64_1d *in2);
+                                 const struct futhark_u64_1d *in1);
 int futhark_entry_hash2(struct futhark_context *ctx,
                         struct futhark_u64_1d **out0, const
                         struct futhark_opaque_p2_state *in0, const

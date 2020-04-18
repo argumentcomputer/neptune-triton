@@ -98,18 +98,18 @@ unsafe{
 _simple2(ctx, in0, )
 }}
 
-pub fn add_columns_2k(&mut self, in0: FutharkOpaqueCtb2KState, in1: i32, in2: Array_u64_1d, ) -> Result<(FutharkOpaqueCtb2KState)>
+pub fn add_columns_2k(&mut self, in0: FutharkOpaqueCtb2KState, in1: Array_u64_1d, ) -> Result<(FutharkOpaqueCtb2KState)>
 {
 let ctx = self.ptr();
 unsafe{
-_add_columns_2k(ctx, in0.as_raw_mut(), in1, in2.as_raw_mut(), )
+_add_columns_2k(ctx, in0.as_raw_mut(), in1.as_raw_mut(), )
 }}
 
-pub fn add_columns_4g(&mut self, in0: FutharkOpaqueCtb4GState, in1: i32, in2: Array_u64_1d, ) -> Result<(FutharkOpaqueCtb4GState)>
+pub fn add_columns_4g(&mut self, in0: FutharkOpaqueCtb4GState, in1: Array_u64_1d, ) -> Result<(FutharkOpaqueCtb4GState)>
 {
 let ctx = self.ptr();
 unsafe{
-_add_columns_4g(ctx, in0.as_raw_mut(), in1, in2.as_raw_mut(), )
+_add_columns_4g(ctx, in0.as_raw_mut(), in1.as_raw_mut(), )
 }}
 
 pub fn hash2(&mut self, in0: FutharkOpaqueP2State, in1: Array_u64_1d, ) -> Result<(Array_u64_1d)>
@@ -192,18 +192,18 @@ return Err(FutharkError::new(ctx).into());}
 Ok((Array_u64_2d::from_ptr(ctx, raw_out0)
 ))
 }
-unsafe fn _add_columns_2k(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_2k_state, in1: i32, in2: *const bindings::futhark_u64_1d, ) -> Result<(FutharkOpaqueCtb2KState)> {
+unsafe fn _add_columns_2k(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_2k_state, in1: *const bindings::futhark_u64_1d, ) -> Result<(FutharkOpaqueCtb2KState)> {
 let mut raw_out0 = std::ptr::null_mut();
 
-if bindings::futhark_entry_add_columns_2k(ctx, &mut raw_out0, in0, in1, in2, ) != 0 {
+if bindings::futhark_entry_add_columns_2k(ctx, &mut raw_out0, in0, in1, ) != 0 {
 return Err(FutharkError::new(ctx).into());}
 Ok((FutharkOpaqueCtb2KState::from_ptr(ctx, raw_out0)
 ))
 }
-unsafe fn _add_columns_4g(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_4g_state, in1: i32, in2: *const bindings::futhark_u64_1d, ) -> Result<(FutharkOpaqueCtb4GState)> {
+unsafe fn _add_columns_4g(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_4g_state, in1: *const bindings::futhark_u64_1d, ) -> Result<(FutharkOpaqueCtb4GState)> {
 let mut raw_out0 = std::ptr::null_mut();
 
-if bindings::futhark_entry_add_columns_4g(ctx, &mut raw_out0, in0, in1, in2, ) != 0 {
+if bindings::futhark_entry_add_columns_4g(ctx, &mut raw_out0, in0, in1, ) != 0 {
 return Err(FutharkError::new(ctx).into());}
 Ok((FutharkOpaqueCtb4GState::from_ptr(ctx, raw_out0)
 ))

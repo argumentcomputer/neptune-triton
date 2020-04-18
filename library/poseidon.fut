@@ -279,20 +279,16 @@ module make_tree_builder (H: hasher) (P: tree_builder_params): tree_builder = {
   -- Like compute_root but returns an array of all rows, not just the last.
   -- This includes the original base row in the final treee, but to minimize memory, maybe we should define it not to.
   let build_tree (s: Hasher.state) (base: [leaves]t): [tree_size]t =
-  let l = length base in
-    let chunks = assert (l % arity == 0) l / arity in
     -- Row shrinks by a factor of 1/Hasher.arity on each iteration.
-    let (tree, _, _)
-    = loop (tree, row, offset) =
-        ((replicate tree_size Field.zero) with [0:(length base)] = base,
-         base,
-         0)
+    let (tree, _, _) =
+      loop (tree, row, offset) = ((replicate tree_size Field.zero) with [0:(length base)] = base, base, 0)
       while length row > 1 do
-        let new_row = map (\preimage -> (Hasher.hash_preimage s preimage))
-                          (unflatten chunks Hasher.arity base) in
-        (tree with [offset:offset+length new_row] = new_row,
-         new_row,
-         offset + length new_row)
+      let chunks = assert ((length row) % arity == 0) ((length row) / arity) in
+      let new_row = map (\preimage -> (Hasher.hash_preimage s preimage))
+                        (unflatten chunks Hasher.arity base) in
+      (tree with [offset:offset+length new_row] = new_row,
+       new_row,
+       offset + length new_row)
     in tree
 }
 
@@ -306,7 +302,7 @@ module type column_tree_builder = {
 
   val init: ColumnHasher.state -> TreeBuilder.Hasher.state -> state
   val reset: state -> state
-  val add_columns: state -> (chunk_size: i32) -> [chunk_size]ColumnHasher.Field.t -> state
+  val add_columns [elt_count]: state -> [elt_count]ColumnHasher.Field.t -> state
   val finalize: state -> ([TreeBuilder.tree_size][TreeBuilder.Hasher.Field.LIMBS]u64, state)
 }
 
@@ -335,8 +331,9 @@ module make_column_tree_builder (ColumnHasher: hasher) (TreeBuilder: tree_builde
       with leaves = replicate TreeBuilder.leaves ColumnHasher.Field.zero
       with pos = 0
 
-  let add_columns (s: state) (chunk_size: i32) (flat_columns: [chunk_size]ColumnHasher.Field.t): state =
-    let columns = unflatten chunk_size ColumnHasher.arity flat_columns in
+   let add_columns [elt_count] (s: state) (flat_columns: [elt_count]ColumnHasher.Field.t): state =
+    let column_count = assert ((elt_count % column_size) == 0 ) (elt_count / column_size) in
+    let columns = unflatten column_count ColumnHasher.arity flat_columns in
     let column_leaves = (map (ColumnHasher.hash_preimage (copy s.column_state)) columns) in
     let new_pos = s.pos + (length column_leaves) in
     s with leaves = (copy s.leaves with [s.pos:new_pos] = column_leaves)
@@ -452,8 +449,9 @@ entry init_4g (treehasher_arity_tag: ([treehasher_4g.Field.LIMBS]u64))
   let colhasher_constants =   colhasher_4g.make_constants colhasher_arity_tag colhasher_round_keys colhasher_mds_matrix colhasher_pre_sparse_matrix colhasher_sparse_matrixes in
   ctb_4g.init (colhasher_4g.init colhasher_constants) (treehasher_4g.init treehasher_constants)
 
-entry add_columns_4g (s: ctb_4g_state) (chunk_size: i32) (columns: []u64): ctb_4g_state =
-  ctb_4g.add_columns s chunk_size (map colhasher_4g.Field.mont_from_u64s (unflatten chunk_size colhasher_4g.arity  columns))
+entry add_columns_4g [u64_count] (s: ctb_4g_state) (columns: [u64_count]u64): ctb_4g_state =
+  let column_count = assert ((u64_count % colhasher_4g.Field.LIMBS) == 0) (u64_count / colhasher_4g.Field.LIMBS) in
+  ctb_4g.add_columns s (map colhasher_4g.Field.mont_from_u64s (unflatten column_count colhasher_4g.Field.LIMBS columns))
 
 entry finalize_4g (s: ctb_4g_state): ([ctb_4g.TreeBuilder.tree_size][treehasher_4g.Field.LIMBS]u64, ctb_4g_state) =
   ctb_4g.finalize s
@@ -486,8 +484,9 @@ entry init_2k (treehasher_arity_tag: ([treehasher_2k.Field.LIMBS]u64))
   let colhasher_constants =   colhasher_2k.make_constants colhasher_arity_tag colhasher_round_keys colhasher_mds_matrix colhasher_pre_sparse_matrix colhasher_sparse_matrixes in
   ctb_2k.init (colhasher_2k.init colhasher_constants) (treehasher_2k.init treehasher_constants)
 
-entry add_columns_2k (s: ctb_2k_state) (chunk_size: i32) (columns: []u64): ctb_2k_state =
-  ctb_2k.add_columns s chunk_size (map colhasher_2k.Field.mont_from_u64s (unflatten chunk_size colhasher_2k.arity  columns))
+entry add_columns_2k [u64_count] (s: ctb_2k_state) (columns: [u64_count]u64): ctb_2k_state =
+  let column_count = assert ((u64_count % colhasher_2k.Field.LIMBS) == 0) (u64_count / colhasher_2k.Field.LIMBS) in
+  ctb_2k.add_columns s (map colhasher_2k.Field.mont_from_u64s (unflatten column_count colhasher_2k.Field.LIMBS columns))
 
 entry finalize_2k (s: ctb_2k_state): ([ctb_2k.TreeBuilder.tree_size][treehasher_2k.Field.LIMBS]u64, ctb_2k_state) =
   ctb_2k.finalize s

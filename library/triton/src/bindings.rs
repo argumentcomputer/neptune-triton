@@ -978,8 +978,7 @@ extern "C" {
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_opaque_ctb_2k_state,
         in0: *const futhark_opaque_ctb_2k_state,
-        in1: i32,
-        in2: *const futhark_u64_1d,
+        in1: *const futhark_u64_1d,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -987,8 +986,7 @@ extern "C" {
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_opaque_ctb_4g_state,
         in0: *const futhark_opaque_ctb_4g_state,
-        in1: i32,
-        in2: *const futhark_u64_1d,
+        in1: *const futhark_u64_1d,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {

@@ -345,8 +345,7 @@ module make_column_tree_builder (ColumnHasher: hasher) (TreeBuilder: tree_builde
   let finalize (s: state): ([TreeBuilder.tree_size][TreeBuilder.Hasher.Field.LIMBS]u64, state) =
     let leaves = map (\i -> TreeBuilder.Hasher.Field.from_u64s (ColumnHasher.Field.to_u64s s.leaves[i])) (iota TreeBuilder.leaves) in
     let mont_tree = (TreeBuilder.build_tree s.tree_hasher_state leaves) in
-    let tree = map TreeBuilder.Hasher.Field.final_reduce mont_tree in
-    let output = map TreeBuilder.Hasher.Field.mont_to_u64s tree
+    let output = map TreeBuilder.Hasher.Field.mont_to_u64s mont_tree
     in (output, s)
 }
 
@@ -387,10 +386,42 @@ entry init2 (arity_tag: ([p2.Field.LIMBS]u64))
   let constants = p2.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
   p2.init constants
 
-entry hash2 (s: p2_state) (preimage_u64s: [8]u64) : [p2.Field.LIMBS]u64 =
+entry hash2 (s: p2_state) (preimage_u64s: [8]u64) : ([p2.Field.LIMBS]u64, p2_state) =
   let preimage = map p2.Field.mont_from_u64s (unflatten p2.arity p2.Field.LIMBS preimage_u64s) in
-  p2.Field.mont_to_u64s (p2.hash_preimage s (preimage :> [p2.arity]p2.Field.t))
+  let hash = p2.Field.mont_to_u64s (p2.hash_preimage s (preimage :> [p2.arity]p2.Field.t)) in
+  (hash, s)
 
+type p8_state = p8.state
+
+entry init8 (arity_tag: ([p8.Field.LIMBS]u64))
+           (round_keys: [p8.rk_count]([p8.Field.LIMBS]u64))
+           (mds_matrix: matrix ([p8.Field.LIMBS]u64) [p8.width])
+           (pre_sparse_matrix: matrix ([p8.Field.LIMBS]u64) [p8.width])
+           (sparse_matrixes: [p8.sparse_count][p8.sparse_matrix_size]([p8.Field.LIMBS]u64))
+              : p8_state =
+  let constants = p8.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  p8.init constants
+
+entry hash8 (s: p8_state) (preimage_u64s: [32]u64) : ([p8.Field.LIMBS]u64, p8_state) =
+  let preimage = map p8.Field.mont_from_u64s (unflatten p8.arity p8.Field.LIMBS preimage_u64s) in
+  let hash = p8.Field.mont_to_u64s (p8.hash_preimage s (preimage :> [p8.arity]p8.Field.t)) in
+  (hash, s)
+
+type p11_state = p11.state
+
+entry init11 (arity_tag: ([p11.Field.LIMBS]u64))
+           (round_keys: [p11.rk_count]([p11.Field.LIMBS]u64))
+           (mds_matrix: matrix ([p11.Field.LIMBS]u64) [p11.width])
+           (pre_sparse_matrix: matrix ([p11.Field.LIMBS]u64) [p11.width])
+           (sparse_matrixes: [p11.sparse_count][p11.sparse_matrix_size]([p11.Field.LIMBS]u64))
+              : p11_state =
+  let constants = p11.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  p11.init constants
+
+entry hash11 (s: p11_state) (preimage_u64s: [44]u64) : ([p11.Field.LIMBS]u64, p11_state) =
+  let preimage = map p11.Field.mont_from_u64s (unflatten p11.arity p11.Field.LIMBS preimage_u64s) in
+  let hash = p11.Field.mont_to_u64s (p11.hash_preimage s (preimage :> [p11.arity]p11.Field.t)) in
+  (hash, s)
 
 entry test2 (input_u64s: [12]u64) : [p2.Field.LIMBS]u64 =
   let input = map p2.Field.mont_from_u64s (unflatten 3 p2.Field.LIMBS input_u64s) in
@@ -481,7 +512,7 @@ entry init_2k (treehasher_arity_tag: ([treehasher_2k.Field.LIMBS]u64))
            (colhasher_sparse_matrixes: [colhasher_2k.sparse_count][colhasher_2k.sparse_matrix_size]([colhasher_2k.Field.LIMBS]u64))
            : ctb_2k_state =
   let treehasher_constants = treehasher_2k.make_constants treehasher_arity_tag treehasher_round_keys treehasher_mds_matrix treehasher_pre_sparse_matrix treehasher_sparse_matrixes in
-  let colhasher_constants =   colhasher_2k.make_constants colhasher_arity_tag colhasher_round_keys colhasher_mds_matrix colhasher_pre_sparse_matrix colhasher_sparse_matrixes in
+  let colhasher_constants = colhasher_2k.make_constants colhasher_arity_tag colhasher_round_keys colhasher_mds_matrix colhasher_pre_sparse_matrix colhasher_sparse_matrixes in
   ctb_2k.init (colhasher_2k.init colhasher_constants) (treehasher_2k.init treehasher_constants)
 
 entry add_columns_2k [u64_count] (s: ctb_2k_state) (columns: [u64_count]u64): ctb_2k_state =

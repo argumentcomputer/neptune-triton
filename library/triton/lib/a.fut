@@ -522,3 +522,32 @@ entry add_columns_2k [u64_count] (s: ctb_2k_state) (columns: [u64_count]u64): ct
 entry finalize_2k (s: ctb_2k_state): ([ctb_2k.TreeBuilder.tree_size][treehasher_2k.Field.LIMBS]u64, ctb_2k_state) =
   ctb_2k.finalize s
 
+
+
+module ctb_512m = make_column_tree_builder p11 t8_512m
+type ctb_512m_state = ctb_512m.state
+
+module colhasher_512m = ctb_512m.ColumnHasher
+module treehasher_512m = ctb_512m.TreeBuilder.Hasher
+
+entry init_512m (treehasher_arity_tag: ([treehasher_512m.Field.LIMBS]u64))
+           (treehasher_round_keys: [treehasher_512m.rk_count]([treehasher_512m.Field.LIMBS]u64))
+           (treehasher_mds_matrix: matrix ([treehasher_512m.Field.LIMBS]u64) [treehasher_512m.width])
+           (treehasher_pre_sparse_matrix: matrix ([treehasher_512m.Field.LIMBS]u64) [treehasher_512m.width])
+           (treehasher_sparse_matrixes: [treehasher_512m.sparse_count][treehasher_512m.sparse_matrix_size]([treehasher_512m.Field.LIMBS]u64))
+           (colhasher_arity_tag: ([colhasher_512m.Field.LIMBS]u64))
+           (colhasher_round_keys: [colhasher_512m.rk_count]([colhasher_512m.Field.LIMBS]u64))
+           (colhasher_mds_matrix: matrix ([colhasher_512m.Field.LIMBS]u64) [colhasher_512m.width])
+           (colhasher_pre_sparse_matrix: matrix ([colhasher_512m.Field.LIMBS]u64) [colhasher_512m.width])
+           (colhasher_sparse_matrixes: [colhasher_512m.sparse_count][colhasher_512m.sparse_matrix_size]([colhasher_512m.Field.LIMBS]u64))
+           : ctb_512m_state =
+  let treehasher_constants = treehasher_512m.make_constants treehasher_arity_tag treehasher_round_keys treehasher_mds_matrix treehasher_pre_sparse_matrix treehasher_sparse_matrixes in
+  let colhasher_constants = colhasher_512m.make_constants colhasher_arity_tag colhasher_round_keys colhasher_mds_matrix colhasher_pre_sparse_matrix colhasher_sparse_matrixes in
+  ctb_512m.init (colhasher_512m.init colhasher_constants) (treehasher_512m.init treehasher_constants)
+
+entry add_columns_512m [u64_count] (s: ctb_512m_state) (columns: [u64_count]u64): ctb_512m_state =
+  let column_count = assert ((u64_count % colhasher_512m.Field.LIMBS) == 0) (u64_count / colhasher_512m.Field.LIMBS) in
+  ctb_512m.add_columns s (map colhasher_512m.Field.mont_from_u64s (unflatten column_count colhasher_512m.Field.LIMBS columns))
+
+entry finalize_512m (s: ctb_512m_state): ([ctb_512m.TreeBuilder.tree_size][treehasher_512m.Field.LIMBS]u64, ctb_512m_state) =
+  ctb_512m.finalize s

@@ -63,6 +63,13 @@ impl Display for FutharkError {
 
 
 impl FutharkContext {
+pub fn finalize_512m(&mut self, in0: FutharkOpaqueCtb512MState, ) -> Result<(Array_u64_2d, FutharkOpaqueCtb512MState)>
+{
+let ctx = self.ptr();
+unsafe{
+_finalize_512m(ctx, in0.as_raw_mut(), )
+}}
+
 pub fn finalize_2k(&mut self, in0: FutharkOpaqueCtb2KState, ) -> Result<(Array_u64_2d, FutharkOpaqueCtb2KState)>
 {
 let ctx = self.ptr();
@@ -98,6 +105,13 @@ unsafe{
 _simple2(ctx, in0, )
 }}
 
+pub fn add_columns_512m(&mut self, in0: FutharkOpaqueCtb512MState, in1: Array_u64_1d, ) -> Result<(FutharkOpaqueCtb512MState)>
+{
+let ctx = self.ptr();
+unsafe{
+_add_columns_512m(ctx, in0.as_raw_mut(), in1.as_raw_mut(), )
+}}
+
 pub fn add_columns_2k(&mut self, in0: FutharkOpaqueCtb2KState, in1: Array_u64_1d, ) -> Result<(FutharkOpaqueCtb2KState)>
 {
 let ctx = self.ptr();
@@ -131,6 +145,13 @@ pub fn hash2(&mut self, in0: FutharkOpaqueP2State, in1: Array_u64_1d, ) -> Resul
 let ctx = self.ptr();
 unsafe{
 _hash2(ctx, in0.as_raw_mut(), in1.as_raw_mut(), )
+}}
+
+pub fn init_512m(&mut self, in0: Array_u64_1d, in1: Array_u64_2d, in2: Array_u64_3d, in3: Array_u64_3d, in4: Array_u64_3d, in5: Array_u64_1d, in6: Array_u64_2d, in7: Array_u64_3d, in8: Array_u64_3d, in9: Array_u64_3d, ) -> Result<(FutharkOpaqueCtb512MState)>
+{
+let ctx = self.ptr();
+unsafe{
+_init_512m(ctx, in0.as_raw_mut(), in1.as_raw_mut(), in2.as_raw_mut(), in3.as_raw_mut(), in4.as_raw_mut(), in5.as_raw_mut(), in6.as_raw_mut(), in7.as_raw_mut(), in8.as_raw_mut(), in9.as_raw_mut(), )
 }}
 
 pub fn init_2k(&mut self, in0: Array_u64_1d, in1: Array_u64_2d, in2: Array_u64_3d, in3: Array_u64_3d, in4: Array_u64_3d, in5: Array_u64_1d, in6: Array_u64_2d, in7: Array_u64_3d, in8: Array_u64_3d, in9: Array_u64_3d, ) -> Result<(FutharkOpaqueCtb2KState)>
@@ -176,6 +197,16 @@ _test2(ctx, in0.as_raw_mut(), )
 }}
 
 }
+unsafe fn _finalize_512m(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_512m_state, ) -> Result<(Array_u64_2d, FutharkOpaqueCtb512MState)> {
+let mut raw_out0 = std::ptr::null_mut();
+let mut raw_out1 = std::ptr::null_mut();
+
+if bindings::futhark_entry_finalize_512m(ctx, &mut raw_out0, &mut raw_out1, in0, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok((Array_u64_2d::from_ptr(ctx, raw_out0)
+, FutharkOpaqueCtb512MState::from_ptr(ctx, raw_out1)
+))
+}
 unsafe fn _finalize_2k(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_2k_state, ) -> Result<(Array_u64_2d, FutharkOpaqueCtb2KState)> {
 let mut raw_out0 = std::ptr::null_mut();
 let mut raw_out1 = std::ptr::null_mut();
@@ -218,6 +249,14 @@ let mut raw_out0 = std::ptr::null_mut();
 if bindings::futhark_entry_simple2(ctx, &mut raw_out0, in0, ) != 0 {
 return Err(FutharkError::new(ctx).into());}
 Ok((Array_u64_2d::from_ptr(ctx, raw_out0)
+))
+}
+unsafe fn _add_columns_512m(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_512m_state, in1: *const bindings::futhark_u64_1d, ) -> Result<(FutharkOpaqueCtb512MState)> {
+let mut raw_out0 = std::ptr::null_mut();
+
+if bindings::futhark_entry_add_columns_512m(ctx, &mut raw_out0, in0, in1, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok((FutharkOpaqueCtb512MState::from_ptr(ctx, raw_out0)
 ))
 }
 unsafe fn _add_columns_2k(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_ctb_2k_state, in1: *const bindings::futhark_u64_1d, ) -> Result<(FutharkOpaqueCtb2KState)> {
@@ -264,6 +303,14 @@ if bindings::futhark_entry_hash2(ctx, &mut raw_out0, &mut raw_out1, in0, in1, ) 
 return Err(FutharkError::new(ctx).into());}
 Ok((Array_u64_1d::from_ptr(ctx, raw_out0)
 , FutharkOpaqueP2State::from_ptr(ctx, raw_out1)
+))
+}
+unsafe fn _init_512m(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_u64_1d, in1: *const bindings::futhark_u64_2d, in2: *const bindings::futhark_u64_3d, in3: *const bindings::futhark_u64_3d, in4: *const bindings::futhark_u64_3d, in5: *const bindings::futhark_u64_1d, in6: *const bindings::futhark_u64_2d, in7: *const bindings::futhark_u64_3d, in8: *const bindings::futhark_u64_3d, in9: *const bindings::futhark_u64_3d, ) -> Result<(FutharkOpaqueCtb512MState)> {
+let mut raw_out0 = std::ptr::null_mut();
+
+if bindings::futhark_entry_init_512m(ctx, &mut raw_out0, in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok((FutharkOpaqueCtb512MState::from_ptr(ctx, raw_out0)
 ))
 }
 unsafe fn _init_2k(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_u64_1d, in1: *const bindings::futhark_u64_2d, in2: *const bindings::futhark_u64_3d, in3: *const bindings::futhark_u64_3d, in4: *const bindings::futhark_u64_3d, in5: *const bindings::futhark_u64_1d, in6: *const bindings::futhark_u64_2d, in7: *const bindings::futhark_u64_3d, in8: *const bindings::futhark_u64_3d, in9: *const bindings::futhark_u64_3d, ) -> Result<(FutharkOpaqueCtb2KState)> {
@@ -379,6 +426,42 @@ impl FutharkOpaqueCtb4GState {
 }
 
 impl Drop for FutharkOpaqueCtb4GState {
+    fn drop(&mut self) {
+        unsafe {
+            self.free_opaque();
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct FutharkOpaqueCtb512MState {
+    ptr: *const bindings::futhark_opaque_ctb_512m_state,
+    ctx: *mut bindings::futhark_context,
+}
+
+impl FutharkOpaqueCtb512MState {
+    pub(crate) unsafe fn as_raw(&self) -> *const bindings::futhark_opaque_ctb_512m_state {
+         self.ptr
+    }
+
+    pub(crate) unsafe fn as_raw_mut(&self) -> *mut bindings::futhark_opaque_ctb_512m_state {
+         self.ptr as *mut bindings::futhark_opaque_ctb_512m_state
+    }
+    pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const bindings::futhark_opaque_ctb_512m_state) -> Self
+        where
+        T: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        Self { ptr, ctx }
+    }
+
+    pub(crate) unsafe fn free_opaque(&mut self)
+    {
+        bindings::futhark_free_opaque_ctb_512m_state(self.ctx, self.as_raw_mut());
+    }
+}
+
+impl Drop for FutharkOpaqueCtb512MState {
     fn drop(&mut self) {
         unsafe {
             self.free_opaque();

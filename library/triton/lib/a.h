@@ -111,15 +111,6 @@ int64_t *futhark_shape_u64_3d(struct futhark_context *ctx,
  * Opaque values
 */
 
-struct futhark_opaque_ctb_2k_state ;
-int futhark_free_opaque_ctb_2k_state(struct futhark_context *ctx,
-                                     struct futhark_opaque_ctb_2k_state *obj);
-struct futhark_opaque_ctb_4g_state ;
-int futhark_free_opaque_ctb_4g_state(struct futhark_context *ctx,
-                                     struct futhark_opaque_ctb_4g_state *obj);
-struct futhark_opaque_ctb_512m_state ;
-int futhark_free_opaque_ctb_512m_state(struct futhark_context *ctx,
-                                       struct futhark_opaque_ctb_512m_state *obj);
 struct futhark_opaque_p11_state ;
 int futhark_free_opaque_p11_state(struct futhark_context *ctx,
                                   struct futhark_opaque_p11_state *obj);
@@ -134,89 +125,26 @@ int futhark_free_opaque_p8_state(struct futhark_context *ctx,
  * Entry points
 */
 
-int futhark_entry_finalize_512m(struct futhark_context *ctx,
+int futhark_entry_mbatch_hash11(struct futhark_context *ctx,
                                 struct futhark_u64_2d **out0,
-                                struct futhark_opaque_ctb_512m_state **out1,
-                                const
-                                struct futhark_opaque_ctb_512m_state *in0);
-int futhark_entry_finalize_2k(struct futhark_context *ctx,
-                              struct futhark_u64_2d **out0,
-                              struct futhark_opaque_ctb_2k_state **out1, const
-                              struct futhark_opaque_ctb_2k_state *in0);
-int futhark_entry_finalize_4g(struct futhark_context *ctx,
-                              struct futhark_u64_2d **out0,
-                              struct futhark_opaque_ctb_4g_state **out1, const
-                              struct futhark_opaque_ctb_4g_state *in0);
-int futhark_entry_simple11(struct futhark_context *ctx,
-                           struct futhark_u64_2d **out0, const int32_t in0);
-int futhark_entry_simple8(struct futhark_context *ctx,
-                          struct futhark_u64_2d **out0, const int32_t in0);
-int futhark_entry_simple2(struct futhark_context *ctx,
-                          struct futhark_u64_2d **out0, const int32_t in0);
-int futhark_entry_add_columns_512m(struct futhark_context *ctx,
-                                   struct futhark_opaque_ctb_512m_state **out0,
-                                   const
-                                   struct futhark_opaque_ctb_512m_state *in0,
-                                   const struct futhark_u64_1d *in1);
-int futhark_entry_add_columns_2k(struct futhark_context *ctx,
-                                 struct futhark_opaque_ctb_2k_state **out0,
-                                 const struct futhark_opaque_ctb_2k_state *in0,
-                                 const struct futhark_u64_1d *in1);
-int futhark_entry_add_columns_4g(struct futhark_context *ctx,
-                                 struct futhark_opaque_ctb_4g_state **out0,
-                                 const struct futhark_opaque_ctb_4g_state *in0,
-                                 const struct futhark_u64_1d *in1);
-int futhark_entry_hash11(struct futhark_context *ctx,
-                         struct futhark_u64_1d **out0,
-                         struct futhark_opaque_p11_state **out1, const
-                         struct futhark_opaque_p11_state *in0, const
-                         struct futhark_u64_1d *in1);
+                                struct futhark_opaque_p11_state **out1, const
+                                struct futhark_opaque_p11_state *in0, const
+                                struct futhark_u64_1d *in1);
+int futhark_entry_mbatch_hash8(struct futhark_context *ctx,
+                               struct futhark_u64_2d **out0,
+                               struct futhark_opaque_p8_state **out1, const
+                               struct futhark_opaque_p8_state *in0, const
+                               struct futhark_u64_1d *in1);
+int futhark_entry_mbatch_hash2(struct futhark_context *ctx,
+                               struct futhark_u64_2d **out0,
+                               struct futhark_opaque_p2_state **out1, const
+                               struct futhark_opaque_p2_state *in0, const
+                               struct futhark_u64_1d *in1);
 int futhark_entry_hash8(struct futhark_context *ctx,
                         struct futhark_u64_1d **out0,
                         struct futhark_opaque_p8_state **out1, const
                         struct futhark_opaque_p8_state *in0, const
                         struct futhark_u64_1d *in1);
-int futhark_entry_hash2(struct futhark_context *ctx,
-                        struct futhark_u64_1d **out0,
-                        struct futhark_opaque_p2_state **out1, const
-                        struct futhark_opaque_p2_state *in0, const
-                        struct futhark_u64_1d *in1);
-int futhark_entry_init_512m(struct futhark_context *ctx,
-                            struct futhark_opaque_ctb_512m_state **out0, const
-                            struct futhark_u64_1d *in0, const
-                            struct futhark_u64_2d *in1, const
-                            struct futhark_u64_3d *in2, const
-                            struct futhark_u64_3d *in3, const
-                            struct futhark_u64_3d *in4, const
-                            struct futhark_u64_1d *in5, const
-                            struct futhark_u64_2d *in6, const
-                            struct futhark_u64_3d *in7, const
-                            struct futhark_u64_3d *in8, const
-                            struct futhark_u64_3d *in9);
-int futhark_entry_init_2k(struct futhark_context *ctx,
-                          struct futhark_opaque_ctb_2k_state **out0, const
-                          struct futhark_u64_1d *in0, const
-                          struct futhark_u64_2d *in1, const
-                          struct futhark_u64_3d *in2, const
-                          struct futhark_u64_3d *in3, const
-                          struct futhark_u64_3d *in4, const
-                          struct futhark_u64_1d *in5, const
-                          struct futhark_u64_2d *in6, const
-                          struct futhark_u64_3d *in7, const
-                          struct futhark_u64_3d *in8, const
-                          struct futhark_u64_3d *in9);
-int futhark_entry_init_4g(struct futhark_context *ctx,
-                          struct futhark_opaque_ctb_4g_state **out0, const
-                          struct futhark_u64_1d *in0, const
-                          struct futhark_u64_2d *in1, const
-                          struct futhark_u64_3d *in2, const
-                          struct futhark_u64_3d *in3, const
-                          struct futhark_u64_3d *in4, const
-                          struct futhark_u64_1d *in5, const
-                          struct futhark_u64_2d *in6, const
-                          struct futhark_u64_3d *in7, const
-                          struct futhark_u64_3d *in8, const
-                          struct futhark_u64_3d *in9);
 int futhark_entry_init11(struct futhark_context *ctx,
                          struct futhark_opaque_p11_state **out0, const
                          struct futhark_u64_1d *in0, const
@@ -238,9 +166,6 @@ int futhark_entry_init2(struct futhark_context *ctx,
                         struct futhark_u64_3d *in2, const
                         struct futhark_u64_3d *in3, const
                         struct futhark_u64_3d *in4);
-int futhark_entry_test2(struct futhark_context *ctx,
-                        struct futhark_u64_1d **out0, const
-                        struct futhark_u64_1d *in0);
 
 /*
  * Miscellaneous

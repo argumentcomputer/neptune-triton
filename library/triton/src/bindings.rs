@@ -936,6 +936,25 @@ extern "C" {
         obj: *mut futhark_opaque_p8_state,
     ) -> ::std::os::raw::c_int;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct futhark_opaque_t8_64m_state {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn futhark_free_opaque_t8_64m_state(
+        ctx: *mut futhark_context,
+        obj: *mut futhark_opaque_t8_64m_state,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_build_tree8_64m(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        in0: *const futhark_opaque_t8_64m_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     pub fn futhark_entry_mbatch_hash11(
         ctx: *mut futhark_context,
@@ -970,6 +989,17 @@ extern "C" {
         out1: *mut *mut futhark_opaque_p8_state,
         in0: *const futhark_opaque_p8_state,
         in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_init_t8_64m(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_opaque_t8_64m_state,
+        in0: *const futhark_u64_1d,
+        in1: *const futhark_u64_2d,
+        in2: *const futhark_u64_3d,
+        in3: *const futhark_u64_3d,
+        in4: *const futhark_u64_3d,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {

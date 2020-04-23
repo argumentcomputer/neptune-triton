@@ -265,6 +265,7 @@ module type tree_builder = {
 
   val build_tree:  Hasher.state -> [leaves]Hasher.Field.t -> [tree_size]Hasher.Field.t
   val compute_root: Hasher.state -> [leaves]Hasher.Field.t -> Hasher.Field.t
+
 }
 
 module type tree_builder_params = {
@@ -396,6 +397,7 @@ module p11: hasher = make_hasher bls12_381 {
 module t2_2k: tree_builder =  make_tree_builder p2 { let leaves: i32 = p2.leaves_per_kib 2 }
 module t4_2k: tree_builder =  make_tree_builder p4 { let leaves: i32 = p4.leaves_per_kib 2 }
 module t8_2k: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_kib 2 }
+module t8_64m: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_mib 64 }
 
 module t8_512m: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_mib 512 }
 module t8_4g: tree_builder =  make_tree_builder p8 { let leaves: i32 = p8.leaves_per_gib 4 }
@@ -444,7 +446,22 @@ entry init11 (arity_tag: ([p11.Field.LIMBS]u64))
   let constants = p11.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
   p11.init constants
 
-
 entry mbatch_hash2 [u64_count] (s: p2_state) (u64s: [u64_count]u64): ([][p2.Field.LIMBS]u64, p2_state) = p2.hash_preimages_monts s u64s
 entry mbatch_hash8 [u64_count] (s: p8_state) (u64s: [u64_count]u64): ([][p8.Field.LIMBS]u64, p8_state) = p8.hash_preimages_monts s u64s
 entry mbatch_hash11 [u64_count] (s: p11_state) (u64s: [u64_count]u64): ([][p11.Field.LIMBS]u64, p11_state) = p11.hash_preimages_monts s u64s
+
+module t8_64m_hasher = t8_64m.Hasher
+type t8_64m_state = t8_64m_hasher.state
+entry init_t8_64m (arity_tag: ([t8_64m_hasher.Field.LIMBS]u64))
+           (round_keys: [t8_64m_hasher.rk_count]([t8_64m_hasher.Field.LIMBS]u64))
+           (mds_matrix: matrix ([t8_64m_hasher.Field.LIMBS]u64) [t8_64m_hasher.width])
+           (pre_sparse_matrix: matrix ([t8_64m_hasher.Field.LIMBS]u64) [t8_64m_hasher.width])
+           (sparse_matrixes: [t8_64m_hasher.sparse_count][t8_64m_hasher.sparse_matrix_size]([t8_64m_hasher.Field.LIMBS]u64))
+              : t8_64m_state =
+  let constants = t8_64m_hasher.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  t8_64m_hasher.init constants
+
+entry build_tree8_64m (s: t8_64m_state) (u64s: []u64): [][t8_64m_hasher.Field.LIMBS]u64 =
+  map t8_64m_hasher.Field.mont_to_u64s
+      (t8_64m.build_tree s ((map t8_64m_hasher.Field.mont_from_u64s (even_chunks t8_64m_hasher.Field.LIMBS u64s))
+                            :> [t8_64m.leaves]t8_64m_hasher.Field.t))

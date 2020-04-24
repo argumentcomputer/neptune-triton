@@ -948,6 +948,13 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn futhark_entry_simple8(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        in0: i32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     pub fn futhark_entry_build_tree8_64m(
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_u64_2d,

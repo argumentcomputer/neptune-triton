@@ -128,6 +128,8 @@ int futhark_free_opaque_t8_64m_state(struct futhark_context *ctx,
  * Entry points
 */
 
+int futhark_entry_simple8(struct futhark_context *ctx,
+                          struct futhark_u64_2d **out0, const int32_t in0);
 int futhark_entry_build_tree8_64m(struct futhark_context *ctx,
                                   struct futhark_u64_2d **out0, const
                                   struct futhark_opaque_t8_64m_state *in0, const

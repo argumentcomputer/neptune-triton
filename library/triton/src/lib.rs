@@ -61,6 +61,13 @@ impl Display for FutharkError {
 }
 
 impl FutharkContext {
+pub fn simple8(&mut self, in0: i32, ) -> Result<(Array_u64_2d)>
+{
+let ctx = self.ptr();
+unsafe{
+_simple8(ctx, in0, )
+}}
+
 pub fn build_tree8_64m(&mut self, in0: &FutharkOpaqueT864MState, in1: Array_u64_1d, ) -> Result<(Array_u64_2d)>
 {
 let ctx = self.ptr();
@@ -124,6 +131,14 @@ unsafe{
 _init2(ctx, in0.as_raw_mut(), in1.as_raw_mut(), in2.as_raw_mut(), in3.as_raw_mut(), in4.as_raw_mut(), )
 }}
 
+}
+unsafe fn _simple8(ctx: *mut bindings::futhark_context, in0: i32, ) -> Result<(Array_u64_2d)> {
+let mut raw_out0 = std::ptr::null_mut();
+
+if bindings::futhark_entry_simple8(ctx, &mut raw_out0, in0, ) != 0 {
+return Err(FutharkError::new(ctx).into());}
+Ok((Array_u64_2d::from_ptr(ctx, raw_out0)
+))
 }
 unsafe fn _build_tree8_64m(ctx: *mut bindings::futhark_context, in0: *const bindings::futhark_opaque_t8_64m_state, in1: *const bindings::futhark_u64_1d, ) -> Result<(Array_u64_2d)> {
 let mut raw_out0 = std::ptr::null_mut();

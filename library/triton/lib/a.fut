@@ -435,6 +435,11 @@ entry hash8 (s: p8_state) (preimage_u64s: [32]u64) : ([p8.Field.LIMBS]u64, p8_st
   let hash = p8.Field.mont_to_u64s (p8.hash_preimage s (preimage :> [p8.arity]p8.Field.t)) in
   (hash, s)
 
+
+let x8 = p8.init p8.blank_constants
+entry simple8 n = tabulate n (\i -> p8.Field.mont_to_u64s
+                                    (p8.hash_preimage x8 ((replicate 8 (p8.Field.mont_from_u32 (u32.i32 i)) :> [p8.arity]p8.Field.t))))
+
 type p11_state = p11.state
 
 entry init11 (arity_tag: ([p11.Field.LIMBS]u64))

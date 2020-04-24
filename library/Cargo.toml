@@ -1,6 +1,6 @@
 [package]
-name = "neptune-triton"
-description = "Futhark implementation of neptune-compatible Poseidon."
+name = "neptune-triton-generator"
+description = "Generate code for neptune-triton from Futhark source."
 version = "0.1.0"
 authors = ["porcuquine <porcuquine@users.noreply.github.com>"]
 edition = "2018"

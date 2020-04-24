@@ -1,3 +1,3 @@
 fn main() {
-    genfut::genfut("triton", "poseidon.fut")
+    genfut::genfut("neptune-triton", "poseidon.fut")
 }

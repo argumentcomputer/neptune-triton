@@ -1,5 +1,4 @@
 use crate::bindings;
-use std::marker::Sync;
 
 #[derive(Clone, Copy)]
 pub struct FutharkContext {
@@ -7,6 +6,7 @@ pub struct FutharkContext {
     config: *mut bindings::futhark_context_config,
 }
 
+// Safe to implement because Futhark has internal synchronization.
 unsafe impl Sync for FutharkContext {}
 unsafe impl Send for FutharkContext {}
 

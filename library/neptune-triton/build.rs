@@ -1,5 +1,8 @@
 extern crate cc;
 
+use std::env;
+use std::path::PathBuf;
+
 fn main() {
     // Sequential C support
     #[cfg(feature = "sequential_c")]
@@ -29,7 +32,6 @@ fn main() {
     }
 
     // OpenCL support
-    // FIXME: bindgen can't find OpenCL/cl.h on macos.
 
     #[cfg(feature = "opencl")]
     {

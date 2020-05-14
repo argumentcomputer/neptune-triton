@@ -368,7 +368,6 @@ impl FutharkOpaqueP11State {
 
 impl Drop for FutharkOpaqueP11State {
     fn drop(&mut self) {
-        println!("Dropping FutharkOpaqueP11State");
         unsafe {
             self.free_opaque();
         }
@@ -404,7 +403,6 @@ impl FutharkOpaqueP2State {
 
 impl Drop for FutharkOpaqueP2State {
     fn drop(&mut self) {
-        println!("Dropping FutharkOpaqueP2State");
         unsafe {
             self.free_opaque();
         }
@@ -440,7 +438,6 @@ impl FutharkOpaqueP8State {
 
 impl Drop for FutharkOpaqueP8State {
     fn drop(&mut self) {
-        println!("Dropping FutharkOpaqueP8State");
         unsafe {
             self.free_opaque();
         }
@@ -479,7 +476,6 @@ impl FutharkOpaqueT864MState {
 
 impl Drop for FutharkOpaqueT864MState {
     fn drop(&mut self) {
-        println!("Dropping FutharkOpaqueT864MState");
         unsafe {
             self.free_opaque();
         }

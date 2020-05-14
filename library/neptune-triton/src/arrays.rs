@@ -270,7 +270,6 @@ impl Array_i64_1d {
 
 impl Drop for Array_i64_1d {
     fn drop(&mut self) {
-        println!("Dropping Array_i64_1d");
         unsafe {
             self.free_array();
         }
@@ -344,7 +343,6 @@ impl Array_i64_2d {
 
 impl Drop for Array_i64_2d {
     fn drop(&mut self) {
-        println!("Dropping Array_i64_2d");
         unsafe {
             self.free_array();
         }
@@ -418,7 +416,6 @@ impl Array_u64_1d {
 
 impl Drop for Array_u64_1d {
     fn drop(&mut self) {
-        println!("Dropping Array_u64_1d");
         unsafe {
             self.free_array();
         }
@@ -492,7 +489,6 @@ impl Array_u64_2d {
 
 impl Drop for Array_u64_2d {
     fn drop(&mut self) {
-        println!("Dropping Array_u64_2d");
         unsafe {
             self.free_array();
         }
@@ -566,7 +562,6 @@ impl Array_u64_3d {
 
 impl Drop for Array_u64_3d {
     fn drop(&mut self) {
-        println!("Dropping Array_u64_3d");
         unsafe {
             self.free_array();
         }

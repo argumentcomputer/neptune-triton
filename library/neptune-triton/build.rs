@@ -29,7 +29,6 @@ fn main() {
     }
 
     // OpenCL support
-    // FIXME: bindgen can't find OpenCL/cl.h on macos.
 
     #[cfg(feature = "opencl")]
     {

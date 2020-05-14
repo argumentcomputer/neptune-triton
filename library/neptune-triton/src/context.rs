@@ -2,9 +2,13 @@ use crate::bindings;
 
 #[derive(Clone, Copy)]
 pub struct FutharkContext {
-    context: *mut bindings::futhark_context,
+    pub context: *mut bindings::futhark_context,
     config: *mut bindings::futhark_context_config,
 }
+
+// Safe to implement because Futhark has internal synchronization.
+unsafe impl Sync for FutharkContext {}
+unsafe impl Send for FutharkContext {}
 
 impl FutharkContext {
     pub fn new() -> Self {
@@ -28,4 +32,3 @@ impl From<FutharkContext> for *mut bindings::futhark_context {
         ctx.ptr()
     }
 }
-

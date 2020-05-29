@@ -381,6 +381,7 @@ module p2: hasher = make_hasher bls12_381 { let arity = 2i32
                                             let full_rounds = 8i32
                                             let partial_rounds = 55i32 }
 
+
 module p4: hasher = make_hasher bls12_381 { let arity = 4i32
                                             let full_rounds = 8i32
                                             let partial_rounds = 56i32 }
@@ -389,10 +390,29 @@ module p8: hasher = make_hasher bls12_381 { let arity = 8i32
                                             let full_rounds = 8i32
                                             let partial_rounds = 57i32 }
 
+
+-- Strengthened Poseidon: 1.25% more partial rounds.
+module s2: hasher = make_hasher bls12_381 { let arity = 2i32
+                                            let full_rounds = 8i32
+                                            let partial_rounds = 69i32 }
+
+module s4: hasher = make_hasher bls12_381 { let arity = 4i32
+                                            let full_rounds = 8i32
+                                            let partial_rounds = 70i32 }
+
+module s8: hasher = make_hasher bls12_381 { let arity = 8i32
+                                            let full_rounds = 8i32
+                                            let partial_rounds = 72i32 }
+
 module p11: hasher = make_hasher bls12_381 {
   let arity = 11i32
   let full_rounds = 8i32
   let partial_rounds = 57i32 }
+
+module s11: hasher = make_hasher bls12_381 {
+  let arity = 11i32
+  let full_rounds = 8i32
+  let partial_rounds = 72i32 }
 
 module t2_2k: tree_builder =  make_tree_builder p2 { let leaves: i32 = p2.leaves_per_kib 2 }
 module t4_2k: tree_builder =  make_tree_builder p4 { let leaves: i32 = p4.leaves_per_kib 2 }
@@ -413,12 +433,6 @@ entry init2 (arity_tag: ([p2.Field.LIMBS]u64))
   let constants = p2.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
   p2.init constants
 
--- entry hash2 (s: p2_state) (preimage_u64s: [8]u64) : ([p2.Field.LIMBS]u64, p2_state) =
---   let preimage = map p2.Field.mont_from_u64s (even_chunks p2.Field.LIMBS preimage_u64s) in
---   let hash = p2.Field.mont_to_u64s (p2.hash_preimage s (preimage :> [p2.arity]p2.Field.t)) in
---   (hash, s)
-
-
 type p8_state = p8.state
 
 entry init8 (arity_tag: ([p8.Field.LIMBS]u64))
@@ -435,11 +449,6 @@ entry hash8 (s: p8_state) (preimage_u64s: [32]u64) : ([p8.Field.LIMBS]u64, p8_st
   let hash = p8.Field.mont_to_u64s (p8.hash_preimage s (preimage :> [p8.arity]p8.Field.t)) in
   (hash, s)
 
-
-let x8 = p8.init p8.blank_constants
-entry simple8 n = tabulate n (\i -> p8.Field.mont_to_u64s
-                                    (p8.hash_preimage x8 ((replicate 8 (p8.Field.mont_from_u32 (u32.i32 i)) :> [p8.arity]p8.Field.t))))
-
 type p11_state = p11.state
 
 entry init11 (arity_tag: ([p11.Field.LIMBS]u64))
@@ -451,9 +460,47 @@ entry init11 (arity_tag: ([p11.Field.LIMBS]u64))
   let constants = p11.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
   p11.init constants
 
+type s2_state = s2.state
+
+entry init2s (arity_tag: ([s2.Field.LIMBS]u64))
+           (round_keys: [s2.rk_count]([s2.Field.LIMBS]u64))
+           (mds_matrix: matrix ([s2.Field.LIMBS]u64) [s2.width])
+           (pre_sparse_matrix: matrix ([s2.Field.LIMBS]u64) [s2.width])
+           (sparse_matrixes: [s2.sparse_count][s2.sparse_matrix_size]([s2.Field.LIMBS]u64))
+              : s2_state =
+  let constants = s2.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  s2.init constants
+
+type s8_state = s8.state
+
+entry init8s (arity_tag: ([s8.Field.LIMBS]u64))
+           (round_keys: [s8.rk_count]([s8.Field.LIMBS]u64))
+           (mds_matrix: matrix ([s8.Field.LIMBS]u64) [s8.width])
+           (pre_sparse_matrix: matrix ([s8.Field.LIMBS]u64) [s8.width])
+           (sparse_matrixes: [s8.sparse_count][s8.sparse_matrix_size]([s8.Field.LIMBS]u64))
+              : s8_state =
+  let constants = s8.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  s8.init constants
+
+type s11_state = s11.state
+
+entry init11s (arity_tag: ([s11.Field.LIMBS]u64))
+           (round_keys: [s11.rk_count]([s11.Field.LIMBS]u64))
+           (mds_matrix: matrix ([s11.Field.LIMBS]u64) [s11.width])
+           (pre_sparse_matrix: matrix ([s11.Field.LIMBS]u64) [s11.width])
+           (sparse_matrixes: [s11.sparse_count][s11.sparse_matrix_size]([s11.Field.LIMBS]u64))
+              : s11_state =
+  let constants = s11.make_constants arity_tag round_keys mds_matrix pre_sparse_matrix sparse_matrixes in
+  s11.init constants
+
 entry mbatch_hash2 [u64_count] (s: p2_state) (u64s: [u64_count]u64): ([][p2.Field.LIMBS]u64, p2_state) = p2.hash_preimages_monts s u64s
 entry mbatch_hash8 [u64_count] (s: p8_state) (u64s: [u64_count]u64): ([][p8.Field.LIMBS]u64, p8_state) = p8.hash_preimages_monts s u64s
 entry mbatch_hash11 [u64_count] (s: p11_state) (u64s: [u64_count]u64): ([][p11.Field.LIMBS]u64, p11_state) = p11.hash_preimages_monts s u64s
+
+-- Strengthened
+entry mbatch_hash2s [u64_count] (s: s2_state) (u64s: [u64_count]u64): ([][s2.Field.LIMBS]u64, s2_state) = s2.hash_preimages_monts s u64s
+entry mbatch_hash8s [u64_count] (s: s8_state) (u64s: [u64_count]u64): ([][s8.Field.LIMBS]u64, s8_state) = s8.hash_preimages_monts s u64s
+entry mbatch_hash11s [u64_count] (s: s11_state) (u64s: [u64_count]u64): ([][s11.Field.LIMBS]u64, s11_state) = s11.hash_preimages_monts s u64s
 
 module t8_64m_hasher = t8_64m.Hasher
 type t8_64m_state = t8_64m_hasher.state
@@ -470,3 +517,9 @@ entry build_tree8_64m (s: t8_64m_state) (u64s: []u64): [][t8_64m_hasher.Field.LI
   map t8_64m_hasher.Field.mont_to_u64s
       (t8_64m.build_tree s ((map t8_64m_hasher.Field.mont_from_u64s (even_chunks t8_64m_hasher.Field.LIMBS u64s))
                             :> [t8_64m.leaves]t8_64m_hasher.Field.t))
+
+
+  -- Used in example program
+let x8 = p8.init p8.blank_constants
+entry simple8 n = tabulate n (\i -> p8.Field.mont_to_u64s
+                                    (p8.hash_preimage x8 ((replicate 8 (p8.Field.mont_from_u32 (u32.i32 i)) :> [p8.arity]p8.Field.t))))

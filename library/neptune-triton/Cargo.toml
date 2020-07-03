@@ -5,6 +5,7 @@ version = "1.0.0"
 authors = ["porcuquine@gmail.com"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
+repository = "https://github.com/filecoin-project/neptune-triton/tree/master/library/neptune-triton"
 
 [dependencies]
 

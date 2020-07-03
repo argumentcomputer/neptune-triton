@@ -5,8 +5,8 @@ use crate::{Error, Result};
 pub(crate) trait FutharkType {
     type RustType: Default;
     const DIM: usize;
-    
-    unsafe fn shape<C>(ctx: C, ptr: *const Self) -> *mut i64
+
+    unsafe fn shape<C>(ctx: C, ptr: *const Self) -> *const i64
     where
         C: Into<*mut bindings::futhark_context>;
     unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
@@ -36,7 +36,7 @@ impl FutharkType for futhark_i64_1d {
    type RustType = i64;
    const DIM: usize = 1;
 
-    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_i64_1d) -> *mut i64
+    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_i64_1d) -> *const i64
     where C: Into<*mut bindings::futhark_context>
     {
         let ctx = ctx.into();
@@ -47,6 +47,8 @@ impl FutharkType for futhark_i64_1d {
     {
         let ctx = ctx.into();
         bindings::futhark_values_i64_1d(ctx, ptr, dst);
+        // Sync the values to the array.
+        bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
     where C: Into<*mut bindings::futhark_context>
@@ -73,7 +75,7 @@ impl FutharkType for futhark_i64_2d {
    type RustType = i64;
    const DIM: usize = 2;
 
-    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_i64_2d) -> *mut i64
+    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_i64_2d) -> *const i64
     where C: Into<*mut bindings::futhark_context>
     {
         let ctx = ctx.into();
@@ -84,6 +86,8 @@ impl FutharkType for futhark_i64_2d {
     {
         let ctx = ctx.into();
         bindings::futhark_values_i64_2d(ctx, ptr, dst);
+        // Sync the values to the array.
+        bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
     where C: Into<*mut bindings::futhark_context>
@@ -109,7 +113,7 @@ impl FutharkType for futhark_u64_1d {
    type RustType = u64;
    const DIM: usize = 1;
 
-    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_1d) -> *mut i64
+    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_1d) -> *const i64
     where C: Into<*mut bindings::futhark_context>
     {
         let ctx = ctx.into();
@@ -120,6 +124,8 @@ impl FutharkType for futhark_u64_1d {
     {
         let ctx = ctx.into();
         bindings::futhark_values_u64_1d(ctx, ptr, dst);
+        // Sync the values to the array.
+        bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
     where C: Into<*mut bindings::futhark_context>
@@ -146,7 +152,7 @@ impl FutharkType for futhark_u64_2d {
    type RustType = u64;
    const DIM: usize = 2;
 
-    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_2d) -> *mut i64
+    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_2d) -> *const i64
     where C: Into<*mut bindings::futhark_context>
     {
         let ctx = ctx.into();
@@ -157,6 +163,8 @@ impl FutharkType for futhark_u64_2d {
     {
         let ctx = ctx.into();
         bindings::futhark_values_u64_2d(ctx, ptr, dst);
+        // Sync the values to the array.
+        bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
     where C: Into<*mut bindings::futhark_context>
@@ -184,7 +192,7 @@ impl FutharkType for futhark_u64_3d {
    type RustType = u64;
    const DIM: usize = 3;
 
-    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_3d) -> *mut i64
+    unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_3d) -> *const i64
     where C: Into<*mut bindings::futhark_context>
     {
         let ctx = ctx.into();
@@ -195,6 +203,8 @@ impl FutharkType for futhark_u64_3d {
     {
         let ctx = ctx.into();
         bindings::futhark_values_u64_3d(ctx, ptr, dst);
+        // Sync the values to the array.
+        bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
     where C: Into<*mut bindings::futhark_context>
@@ -230,7 +240,7 @@ impl Array_i64_1d {
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        let shape_ptr: *mut i64 = futhark_i64_1d::shape(ctx, ptr);
+        let shape_ptr: *const i64 = futhark_i64_1d::shape(ctx, ptr);
         let shape = std::slice::from_raw_parts(shape_ptr, 1);
         Vec::from(shape)
     }
@@ -307,7 +317,7 @@ impl Array_i64_2d {
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        let shape_ptr: *mut i64 = futhark_i64_2d::shape(ctx, ptr);
+        let shape_ptr: *const i64 = futhark_i64_2d::shape(ctx, ptr);
         let shape = std::slice::from_raw_parts(shape_ptr, 2);
         Vec::from(shape)
     }
@@ -384,7 +394,7 @@ impl Array_u64_1d {
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        let shape_ptr: *mut i64 = futhark_u64_1d::shape(ctx, ptr);
+        let shape_ptr: *const i64 = futhark_u64_1d::shape(ctx, ptr);
         let shape = std::slice::from_raw_parts(shape_ptr, 1);
         Vec::from(shape)
     }
@@ -461,7 +471,7 @@ impl Array_u64_2d {
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        let shape_ptr: *mut i64 = futhark_u64_2d::shape(ctx, ptr);
+        let shape_ptr: *const i64 = futhark_u64_2d::shape(ctx, ptr);
         let shape = std::slice::from_raw_parts(shape_ptr, 2);
         Vec::from(shape)
     }
@@ -538,7 +548,7 @@ impl Array_u64_3d {
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        let shape_ptr: *mut i64 = futhark_u64_3d::shape(ctx, ptr);
+        let shape_ptr: *const i64 = futhark_u64_3d::shape(ctx, ptr);
         let shape = std::slice::from_raw_parts(shape_ptr, 3);
         Vec::from(shape)
     }

@@ -12,3 +12,6 @@ repository = "https://github.com/filecoin-project/neptune-triton/tree/master/lib
 [dependencies]
 genfut = { version = "0.2.1", default-features = false, features = ["opencl"] }
 
+[[bin]]
+name="codegen"
+

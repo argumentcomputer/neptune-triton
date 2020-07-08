@@ -3,3 +3,6 @@ Cargo.lock
 /lib
 triton/target
 triton/Cargo.lock
+*.actual
+*.expected
+/*.c

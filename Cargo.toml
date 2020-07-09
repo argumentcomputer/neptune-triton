@@ -2,4 +2,5 @@
 
 members = [
     "library",
+    "library/neptune-triton",
 ]

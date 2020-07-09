@@ -8,3 +8,5 @@ edition = "2018"
 
 [dependencies]
 triton = { path = "../library/neptune-triton", default-features=false, features=["opencl"], package = "neptune-triton" }
+
+[workspace]

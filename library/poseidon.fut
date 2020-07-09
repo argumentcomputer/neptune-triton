@@ -135,8 +135,7 @@ module make_hasher (f: F.field) (p: Params): hasher = {
 
   let make_sparse_matrix (array: [sparse_matrix_size]Field.t): sparse_matrix Field.t [width] [width_] =
     { w_hat = take width array,
-      v_rest = take width_ <| drop width <| array }
-
+      v_rest = array |> drop width |> take width_ }
   let make_constants (arity_tag: ([Field.LIMBS]u64)) (round_keys: [rk_count]([Field.LIMBS]u64)) (mds_matrix: matrix ([Field.LIMBS]u64) [width]) (pre_sparse_matrix: matrix ([Field.LIMBS]u64) [width])
   (sparse_matrixes: [sparse_count][sparse_matrix_size][Field.LIMBS]u64): constants Field.t [width] [width_] [rk_count] [sparse_count] =
     let sparse_matrixes = map make_sparse_matrix (map (map Field.mont_from_u64s) sparse_matrixes) in

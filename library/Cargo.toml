@@ -1,8 +1,8 @@
 [package]
 name = "neptune-triton-generator"
 description = "Generate code for neptune-triton from Futhark source."
-version = "1.0.0"
-authors = ["porcuquine <porcuquine@users.noreply.github.com>"]
+version = "1.1.0"
+authors = ["porcuquine <porcuquine@gmail.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/filecoin-project/neptune-triton/tree/master/library"
@@ -10,4 +10,7 @@ repository = "https://github.com/filecoin-project/neptune-triton/tree/master/lib
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-genfut = { version = "0.1.6", default-features = false, features = ["opencl"] }
+genfut = { version = "0.2.1", default-features = false, features = ["opencl"] }
+
+[[bin]]
+name="codegen"

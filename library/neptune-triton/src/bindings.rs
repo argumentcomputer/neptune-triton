@@ -16175,21 +16175,6 @@ extern "C" {
     pub fn futhark_context_free(ctx: *mut futhark_context);
 }
 extern "C" {
-    pub fn futhark_context_sync(ctx: *mut futhark_context) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_context_get_error(ctx: *mut futhark_context) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn futhark_context_pause_profiling(ctx: *mut futhark_context);
-}
-extern "C" {
-    pub fn futhark_context_unpause_profiling(ctx: *mut futhark_context);
-}
-extern "C" {
-    pub fn futhark_context_clear_caches(ctx: *mut futhark_context) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn futhark_context_get_command_queue(ctx: *mut futhark_context) -> cl_command_queue;
 }
 #[repr(C)]
@@ -16230,7 +16215,7 @@ extern "C" {
         -> cl_mem;
 }
 extern "C" {
-    pub fn futhark_shape_i64_1d(ctx: *mut futhark_context, arr: *mut futhark_i64_1d) -> *mut i64;
+    pub fn futhark_shape_i64_1d(ctx: *mut futhark_context, arr: *mut futhark_i64_1d) -> *const i64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16272,7 +16257,7 @@ extern "C" {
         -> cl_mem;
 }
 extern "C" {
-    pub fn futhark_shape_i64_2d(ctx: *mut futhark_context, arr: *mut futhark_i64_2d) -> *mut i64;
+    pub fn futhark_shape_i64_2d(ctx: *mut futhark_context, arr: *mut futhark_i64_2d) -> *const i64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16312,7 +16297,7 @@ extern "C" {
         -> cl_mem;
 }
 extern "C" {
-    pub fn futhark_shape_u64_1d(ctx: *mut futhark_context, arr: *mut futhark_u64_1d) -> *mut i64;
+    pub fn futhark_shape_u64_1d(ctx: *mut futhark_context, arr: *mut futhark_u64_1d) -> *const i64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16354,7 +16339,7 @@ extern "C" {
         -> cl_mem;
 }
 extern "C" {
-    pub fn futhark_shape_u64_2d(ctx: *mut futhark_context, arr: *mut futhark_u64_2d) -> *mut i64;
+    pub fn futhark_shape_u64_2d(ctx: *mut futhark_context, arr: *mut futhark_u64_2d) -> *const i64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16398,7 +16383,7 @@ extern "C" {
         -> cl_mem;
 }
 extern "C" {
-    pub fn futhark_shape_u64_3d(ctx: *mut futhark_context, arr: *mut futhark_u64_3d) -> *mut i64;
+    pub fn futhark_shape_u64_3d(ctx: *mut futhark_context, arr: *mut futhark_u64_3d) -> *const i64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16478,71 +16463,10 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn futhark_entry_simple8(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        in0: i32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn futhark_entry_build_tree8_64m(
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_u64_2d,
         in0: *const futhark_opaque_t8_64m_state,
-        in1: *const futhark_u64_1d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_entry_mbatch_hash11s(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        out1: *mut *mut futhark_opaque_s11_state,
-        in0: *const futhark_opaque_s11_state,
-        in1: *const futhark_u64_1d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_entry_mbatch_hash8s(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        out1: *mut *mut futhark_opaque_s8_state,
-        in0: *const futhark_opaque_s8_state,
-        in1: *const futhark_u64_1d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_entry_mbatch_hash2s(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        out1: *mut *mut futhark_opaque_s2_state,
-        in0: *const futhark_opaque_s2_state,
-        in1: *const futhark_u64_1d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_entry_mbatch_hash11(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        out1: *mut *mut futhark_opaque_p11_state,
-        in0: *const futhark_opaque_p11_state,
-        in1: *const futhark_u64_1d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_entry_mbatch_hash8(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        out1: *mut *mut futhark_opaque_p8_state,
-        in0: *const futhark_opaque_p8_state,
-        in1: *const futhark_u64_1d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn futhark_entry_mbatch_hash2(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_u64_2d,
-        out1: *mut *mut futhark_opaque_p2_state,
-        in0: *const futhark_opaque_p2_state,
         in1: *const futhark_u64_1d,
     ) -> ::std::os::raw::c_int;
 }
@@ -16556,9 +16480,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn futhark_entry_init_t8_64m(
+    pub fn futhark_entry_init11(
         ctx: *mut futhark_context,
-        out0: *mut *mut futhark_opaque_t8_64m_state,
+        out0: *mut *mut futhark_opaque_p11_state,
         in0: *const futhark_u64_1d,
         in1: *const futhark_u64_2d,
         in2: *const futhark_u64_3d,
@@ -16578,9 +16502,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn futhark_entry_init8s(
+    pub fn futhark_entry_init2(
         ctx: *mut futhark_context,
-        out0: *mut *mut futhark_opaque_s8_state,
+        out0: *mut *mut futhark_opaque_p2_state,
         in0: *const futhark_u64_1d,
         in1: *const futhark_u64_2d,
         in2: *const futhark_u64_3d,
@@ -16600,17 +16524,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn futhark_entry_init11(
-        ctx: *mut futhark_context,
-        out0: *mut *mut futhark_opaque_p11_state,
-        in0: *const futhark_u64_1d,
-        in1: *const futhark_u64_2d,
-        in2: *const futhark_u64_3d,
-        in3: *const futhark_u64_3d,
-        in4: *const futhark_u64_3d,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn futhark_entry_init8(
         ctx: *mut futhark_context,
         out0: *mut *mut futhark_opaque_p8_state,
@@ -16622,9 +16535,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn futhark_entry_init2(
+    pub fn futhark_entry_init8s(
         ctx: *mut futhark_context,
-        out0: *mut *mut futhark_opaque_p2_state,
+        out0: *mut *mut futhark_opaque_s8_state,
         in0: *const futhark_u64_1d,
         in1: *const futhark_u64_2d,
         in2: *const futhark_u64_3d,
@@ -16633,5 +16546,92 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn futhark_debugging_report(ctx: *mut futhark_context);
+    pub fn futhark_entry_init_t8_64m(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_opaque_t8_64m_state,
+        in0: *const futhark_u64_1d,
+        in1: *const futhark_u64_2d,
+        in2: *const futhark_u64_3d,
+        in3: *const futhark_u64_3d,
+        in4: *const futhark_u64_3d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_mbatch_hash11(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        out1: *mut *mut futhark_opaque_p11_state,
+        in0: *const futhark_opaque_p11_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_mbatch_hash11s(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        out1: *mut *mut futhark_opaque_s11_state,
+        in0: *const futhark_opaque_s11_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_mbatch_hash2(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        out1: *mut *mut futhark_opaque_p2_state,
+        in0: *const futhark_opaque_p2_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_mbatch_hash2s(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        out1: *mut *mut futhark_opaque_s2_state,
+        in0: *const futhark_opaque_s2_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_mbatch_hash8(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        out1: *mut *mut futhark_opaque_p8_state,
+        in0: *const futhark_opaque_p8_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_mbatch_hash8s(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        out1: *mut *mut futhark_opaque_s8_state,
+        in0: *const futhark_opaque_s8_state,
+        in1: *const futhark_u64_1d,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_entry_simple8(
+        ctx: *mut futhark_context,
+        out0: *mut *mut futhark_u64_2d,
+        in0: i32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_context_sync(ctx: *mut futhark_context) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_context_clear_caches(ctx: *mut futhark_context) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn futhark_context_report(ctx: *mut futhark_context) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn futhark_context_get_error(ctx: *mut futhark_context) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn futhark_context_pause_profiling(ctx: *mut futhark_context);
+}
+extern "C" {
+    pub fn futhark_context_unpause_profiling(ctx: *mut futhark_context);
 }

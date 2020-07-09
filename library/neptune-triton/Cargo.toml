@@ -1,11 +1,10 @@
 [package]
 name = "neptune-triton"
 description = "GPU implementation of neptune-compatible Poseidon hashing."
-version = "1.0.0"
+version = "1.1.0"
 authors = ["porcuquine@gmail.com"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/filecoin-project/neptune-triton/tree/master/library/neptune-triton"
 
 [dependencies]
 

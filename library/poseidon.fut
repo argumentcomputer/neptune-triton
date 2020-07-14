@@ -1,4 +1,4 @@
-module F = import "lib/github.com/porcuquine/fut-ff/field"
+module F = import "lib/github.com/filecoin-project/fut-ff/field"
 
 import "lib/github.com/athas/vector/vector"
 module vector_2 = cat_vector vector_1 vector_1

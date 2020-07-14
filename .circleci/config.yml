@@ -90,21 +90,6 @@ jobs:
       - run:
           name: Run cargo fmt
           command: cargo fmt --all -- --check
-
-  clippy:
-    executor: default
-    steps:
-      - *restore-workspace
-      - *restore-cache
-      - run: echo 'export PATH="$HOME:~/.cargo/bin:$PATH"' >> $BASH_ENV
-      - run: source $BASH_ENV
-      - run: sudo apt-get update -y
-      - run: apt-cache search opencl
-      - run: sudo apt install -y ocl-icd-opencl-dev
-      - run:
-          name: Run cargo clippy
-          command: cargo clippy --all-features
-
   build:
     executor: default
     steps:
@@ -112,23 +97,12 @@ jobs:
       - *restore-cache
       - run: echo 'export PATH="$HOME:~/.cargo/bin:$PATH"' >> $BASH_ENV
       - run: source $BASH_ENV
-      - run:
-          name: Run cargo release build
-          command: cargo build --release
-
-  benches:
-    executor: default
-    steps:
-      - *restore-workspace
-      - *restore-cache
-      - run: echo 'export PATH="$HOME:~/.cargo/bin:$PATH"' >> $BASH_ENV
-      - run: source $BASH_ENV
       - run: sudo apt-get update -y
       - run: apt-cache search opencl
       - run: sudo apt install -y ocl-icd-opencl-dev
       - run:
-          name: Run cargo build --benches
-          command: cargo build --benches --all-features --all --release
+          name: Run cargo release build
+          command: cargo build --release
 
 workflows:
   version: 2.1
@@ -139,15 +113,9 @@ workflows:
       - rustfmt:
           requires:
             - cargo_fetch
-      - clippy:
-          requires:
-            - cargo_fetch
       - test_x86_64-unknown-linux-gnu:
           requires:
             - cargo_fetch
       - build:
-          requires:
-            - cargo_fetch
-      - benches:
           requires:
             - cargo_fetch

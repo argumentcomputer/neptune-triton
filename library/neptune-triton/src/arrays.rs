@@ -20,30 +20,29 @@ pub(crate) trait FutharkType {
 use crate::bindings::*;
 
 impl futhark_i64_1d {
-   unsafe fn new<C>(ctx: C, arr: &[i64], dim: &[i64]) -> *const Self
-   where C: Into<*mut bindings::futhark_context>
-   {
-     let ctx = ctx.into();
-     bindings::futhark_new_i64_1d(
-       ctx,
-       arr.as_ptr() as *mut i64,
-       dim[0],
-)
-     }
+    unsafe fn new<C>(ctx: C, arr: &[i64], dim: &[i64]) -> *const Self
+    where
+        C: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        bindings::futhark_new_i64_1d(ctx, arr.as_ptr() as *mut i64, dim[0])
+    }
 }
 
 impl FutharkType for futhark_i64_1d {
-   type RustType = i64;
-   const DIM: usize = 1;
+    type RustType = i64;
+    const DIM: usize = 1;
 
     unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_i64_1d) -> *const i64
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_shape_i64_1d(ctx, ptr as *mut bindings::futhark_i64_1d)
     }
     unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_values_i64_1d(ctx, ptr, dst);
@@ -51,38 +50,38 @@ impl FutharkType for futhark_i64_1d {
         bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_free_i64_1d(ctx, ptr);
-    }}
+    }
+}
 
 impl futhark_i64_2d {
-   unsafe fn new<C>(ctx: C, arr: &[i64], dim: &[i64]) -> *const Self
-   where C: Into<*mut bindings::futhark_context>
-   {
-     let ctx = ctx.into();
-     bindings::futhark_new_i64_2d(
-       ctx,
-       arr.as_ptr() as *mut i64,
-       dim[0],
-dim[1],
-)
-     }
+    unsafe fn new<C>(ctx: C, arr: &[i64], dim: &[i64]) -> *const Self
+    where
+        C: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        bindings::futhark_new_i64_2d(ctx, arr.as_ptr() as *mut i64, dim[0], dim[1])
+    }
 }
 
 impl FutharkType for futhark_i64_2d {
-   type RustType = i64;
-   const DIM: usize = 2;
+    type RustType = i64;
+    const DIM: usize = 2;
 
     unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_i64_2d) -> *const i64
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_shape_i64_2d(ctx, ptr as *mut bindings::futhark_i64_2d)
     }
     unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_values_i64_2d(ctx, ptr, dst);
@@ -90,37 +89,38 @@ impl FutharkType for futhark_i64_2d {
         bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_free_i64_2d(ctx, ptr);
-    }}
+    }
+}
 
 impl futhark_u64_1d {
-   unsafe fn new<C>(ctx: C, arr: &[u64], dim: &[i64]) -> *const Self
-   where C: Into<*mut bindings::futhark_context>
-   {
-     let ctx = ctx.into();
-     bindings::futhark_new_u64_1d(
-       ctx,
-       arr.as_ptr() as *mut u64,
-       dim[0],
-)
-     }
+    unsafe fn new<C>(ctx: C, arr: &[u64], dim: &[i64]) -> *const Self
+    where
+        C: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        bindings::futhark_new_u64_1d(ctx, arr.as_ptr() as *mut u64, dim[0])
+    }
 }
 
 impl FutharkType for futhark_u64_1d {
-   type RustType = u64;
-   const DIM: usize = 1;
+    type RustType = u64;
+    const DIM: usize = 1;
 
     unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_1d) -> *const i64
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_shape_u64_1d(ctx, ptr as *mut bindings::futhark_u64_1d)
     }
     unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_values_u64_1d(ctx, ptr, dst);
@@ -128,38 +128,38 @@ impl FutharkType for futhark_u64_1d {
         bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_free_u64_1d(ctx, ptr);
-    }}
+    }
+}
 
 impl futhark_u64_2d {
-   unsafe fn new<C>(ctx: C, arr: &[u64], dim: &[i64]) -> *const Self
-   where C: Into<*mut bindings::futhark_context>
-   {
-     let ctx = ctx.into();
-     bindings::futhark_new_u64_2d(
-       ctx,
-       arr.as_ptr() as *mut u64,
-       dim[0],
-dim[1],
-)
-     }
+    unsafe fn new<C>(ctx: C, arr: &[u64], dim: &[i64]) -> *const Self
+    where
+        C: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        bindings::futhark_new_u64_2d(ctx, arr.as_ptr() as *mut u64, dim[0], dim[1])
+    }
 }
 
 impl FutharkType for futhark_u64_2d {
-   type RustType = u64;
-   const DIM: usize = 2;
+    type RustType = u64;
+    const DIM: usize = 2;
 
     unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_2d) -> *const i64
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_shape_u64_2d(ctx, ptr as *mut bindings::futhark_u64_2d)
     }
     unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_values_u64_2d(ctx, ptr, dst);
@@ -167,39 +167,38 @@ impl FutharkType for futhark_u64_2d {
         bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_free_u64_2d(ctx, ptr);
-    }}
+    }
+}
 
 impl futhark_u64_3d {
-   unsafe fn new<C>(ctx: C, arr: &[u64], dim: &[i64]) -> *const Self
-   where C: Into<*mut bindings::futhark_context>
-   {
-     let ctx = ctx.into();
-     bindings::futhark_new_u64_3d(
-       ctx,
-       arr.as_ptr() as *mut u64,
-       dim[0],
-dim[1],
-dim[2],
-)
-     }
+    unsafe fn new<C>(ctx: C, arr: &[u64], dim: &[i64]) -> *const Self
+    where
+        C: Into<*mut bindings::futhark_context>,
+    {
+        let ctx = ctx.into();
+        bindings::futhark_new_u64_3d(ctx, arr.as_ptr() as *mut u64, dim[0], dim[1], dim[2])
+    }
 }
 
 impl FutharkType for futhark_u64_3d {
-   type RustType = u64;
-   const DIM: usize = 3;
+    type RustType = u64;
+    const DIM: usize = 3;
 
     unsafe fn shape<C>(ctx: C, ptr: *const bindings::futhark_u64_3d) -> *const i64
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_shape_u64_3d(ctx, ptr as *mut bindings::futhark_u64_3d)
     }
     unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_values_u64_3d(ctx, ptr, dst);
@@ -207,28 +206,29 @@ impl FutharkType for futhark_u64_3d {
         bindings::futhark_context_sync(ctx);
     }
     unsafe fn free<C>(ctx: C, ptr: *mut Self)
-    where C: Into<*mut bindings::futhark_context>
+    where
+        C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
         bindings::futhark_free_u64_3d(ctx, ptr);
-    }}
+    }
+}
 #[derive(Debug)]
 pub struct Array_i64_1d {
     ptr: *const futhark_i64_1d,
     ctx: *mut bindings::futhark_context,
 }
 
-
 impl Array_i64_1d {
     pub(crate) unsafe fn as_raw(&self) -> *const futhark_i64_1d {
-         self.ptr
+        self.ptr
     }
 
     pub(crate) unsafe fn as_raw_mut(&self) -> *mut futhark_i64_1d {
-         self.ptr as *mut futhark_i64_1d
+        self.ptr as *mut futhark_i64_1d
     }
     pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const futhark_i64_1d) -> Self
-        where
+    where
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
@@ -260,23 +260,20 @@ impl Array_i64_1d {
             Ok(Array_i64_1d { ptr, ctx })
         }
     }
-    
-    pub fn to_vec(&self) -> (Vec<i64>, Vec<i64>)
-    {
+
+    pub fn to_vec(&self) -> (Vec<i64>, Vec<i64>) {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
-            let mut buffer: Vec<i64> =
-                vec![i64::default(); elems];
+            let mut buffer: Vec<i64> = vec![i64::default(); elems];
             let cint = futhark_i64_1d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
             (buffer, shape.to_owned())
         }
     }
 
-    pub(crate) unsafe fn free_array(&mut self)
-    {
+    pub(crate) unsafe fn free_array(&mut self) {
         futhark_i64_1d::free(self.ctx, self.as_raw_mut());
     }
 }
@@ -295,17 +292,16 @@ pub struct Array_i64_2d {
     ctx: *mut bindings::futhark_context,
 }
 
-
 impl Array_i64_2d {
     pub(crate) unsafe fn as_raw(&self) -> *const futhark_i64_2d {
-         self.ptr
+        self.ptr
     }
 
     pub(crate) unsafe fn as_raw_mut(&self) -> *mut futhark_i64_2d {
-         self.ptr as *mut futhark_i64_2d
+        self.ptr as *mut futhark_i64_2d
     }
     pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const futhark_i64_2d) -> Self
-        where
+    where
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
@@ -337,23 +333,20 @@ impl Array_i64_2d {
             Ok(Array_i64_2d { ptr, ctx })
         }
     }
-    
-    pub fn to_vec(&self) -> (Vec<i64>, Vec<i64>)
-    {
+
+    pub fn to_vec(&self) -> (Vec<i64>, Vec<i64>) {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
-            let mut buffer: Vec<i64> =
-                vec![i64::default(); elems];
+            let mut buffer: Vec<i64> = vec![i64::default(); elems];
             let cint = futhark_i64_2d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
             (buffer, shape.to_owned())
         }
     }
 
-    pub(crate) unsafe fn free_array(&mut self)
-    {
+    pub(crate) unsafe fn free_array(&mut self) {
         futhark_i64_2d::free(self.ctx, self.as_raw_mut());
     }
 }
@@ -372,17 +365,16 @@ pub struct Array_u64_1d {
     ctx: *mut bindings::futhark_context,
 }
 
-
 impl Array_u64_1d {
     pub(crate) unsafe fn as_raw(&self) -> *const futhark_u64_1d {
-         self.ptr
+        self.ptr
     }
 
     pub(crate) unsafe fn as_raw_mut(&self) -> *mut futhark_u64_1d {
-         self.ptr as *mut futhark_u64_1d
+        self.ptr as *mut futhark_u64_1d
     }
     pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const futhark_u64_1d) -> Self
-        where
+    where
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
@@ -414,23 +406,20 @@ impl Array_u64_1d {
             Ok(Array_u64_1d { ptr, ctx })
         }
     }
-    
-    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>)
-    {
+
+    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>) {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
-            let mut buffer: Vec<u64> =
-                vec![u64::default(); elems];
+            let mut buffer: Vec<u64> = vec![u64::default(); elems];
             let cint = futhark_u64_1d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
             (buffer, shape.to_owned())
         }
     }
 
-    pub(crate) unsafe fn free_array(&mut self)
-    {
+    pub(crate) unsafe fn free_array(&mut self) {
         futhark_u64_1d::free(self.ctx, self.as_raw_mut());
     }
 }
@@ -449,17 +438,16 @@ pub struct Array_u64_2d {
     ctx: *mut bindings::futhark_context,
 }
 
-
 impl Array_u64_2d {
     pub(crate) unsafe fn as_raw(&self) -> *const futhark_u64_2d {
-         self.ptr
+        self.ptr
     }
 
     pub(crate) unsafe fn as_raw_mut(&self) -> *mut futhark_u64_2d {
-         self.ptr as *mut futhark_u64_2d
+        self.ptr as *mut futhark_u64_2d
     }
     pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const futhark_u64_2d) -> Self
-        where
+    where
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
@@ -491,23 +479,20 @@ impl Array_u64_2d {
             Ok(Array_u64_2d { ptr, ctx })
         }
     }
-    
-    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>)
-    {
+
+    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>) {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
-            let mut buffer: Vec<u64> =
-                vec![u64::default(); elems];
+            let mut buffer: Vec<u64> = vec![u64::default(); elems];
             let cint = futhark_u64_2d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
             (buffer, shape.to_owned())
         }
     }
 
-    pub(crate) unsafe fn free_array(&mut self)
-    {
+    pub(crate) unsafe fn free_array(&mut self) {
         futhark_u64_2d::free(self.ctx, self.as_raw_mut());
     }
 }
@@ -526,17 +511,16 @@ pub struct Array_u64_3d {
     ctx: *mut bindings::futhark_context,
 }
 
-
 impl Array_u64_3d {
     pub(crate) unsafe fn as_raw(&self) -> *const futhark_u64_3d {
-         self.ptr
+        self.ptr
     }
 
     pub(crate) unsafe fn as_raw_mut(&self) -> *mut futhark_u64_3d {
-         self.ptr as *mut futhark_u64_3d
+        self.ptr as *mut futhark_u64_3d
     }
     pub(crate) unsafe fn from_ptr<T>(ctx: T, ptr: *const futhark_u64_3d) -> Self
-        where
+    where
         T: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
@@ -568,23 +552,20 @@ impl Array_u64_3d {
             Ok(Array_u64_3d { ptr, ctx })
         }
     }
-    
-    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>)
-    {
+
+    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>) {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
-            let mut buffer: Vec<u64> =
-                vec![u64::default(); elems];
+            let mut buffer: Vec<u64> = vec![u64::default(); elems];
             let cint = futhark_u64_3d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
             (buffer, shape.to_owned())
         }
     }
 
-    pub(crate) unsafe fn free_array(&mut self)
-    {
+    pub(crate) unsafe fn free_array(&mut self) {
         futhark_u64_3d::free(self.ctx, self.as_raw_mut());
     }
 }
@@ -596,6 +577,3 @@ impl Drop for Array_u64_3d {
         }
     }
 }
-
-
-

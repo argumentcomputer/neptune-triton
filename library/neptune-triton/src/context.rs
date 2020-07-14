@@ -32,4 +32,3 @@ impl From<FutharkContext> for *mut bindings::futhark_context {
         ctx.ptr()
     }
 }
-

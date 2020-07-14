@@ -11,8 +11,15 @@ fn main() {
         license: "MIT OR Apache-2.0".to_string(),
     });
 
-    set_current_dir("neptune-triton");
+    let toolchain_raw = std::fs::read_to_string("../rust-toolchain").expect(
+        "toolchain not found. codegen should be run from /neptune-triton/library directory.",
+    );
+    set_current_dir("neptune-triton").unwrap();
+
+    let toolchain = toolchain_raw[..].trim_end();
+
     Command::new("cargo")
+        .arg(format!("+{}", toolchain))
         .arg("fmt")
         .output()
         .expect("failed to format");

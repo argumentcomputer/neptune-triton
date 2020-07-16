@@ -127,6 +127,20 @@ From repository root:
 % futhark opencl --safe --library -o neptune-triton/lib/a poseidon.fut
 ```
 
+## Verify Futhark Packages
+
+`poseidon.fut` depends on several Futhark packages, the contents of which are committed to the repository. To verify
+that the provided sources correspond to those specified in `library/futhark.pkg`, you can manually sync:
+
+From repository root:
+```shell
+% cd library
+% futhark pkg sync
+```
+
+Assuming you have a network connection, there should be no output, and no files in the repository should have been
+modified. The Futhark packages will (still) be installed in `library/lib`.
+
 ## License
 
 The Filecoin Project is dual-licensed under Apache 2.0 and MIT terms:

@@ -168,7 +168,7 @@ module make_hasher (f: F.field) (p: Params): hasher = {
     Field.(s.elements[i] + s.constants.round_keys[i32.(rk_offset + i)])
 
   -- Could be more generic, but could also use a library. Just target clarity.
-  let scalar_product (a: elements) (b: elements) = Field.(reduce (+) zero (map2 (*) a b))
+  let scalar_product (a: elements) (b: elements) = Field.(reduce_comm (+) zero (map2 (*) a b))
 
   let apply_matrix (m: mat) (elts: elements): elements =
     map (scalar_product elts) (transpose m)

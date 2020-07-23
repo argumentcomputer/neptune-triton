@@ -62,8 +62,8 @@ if you wish to verify the correctness of the generated code.
 
 For example, if `futhark-version.txt` contains the folowing, then `neptune-triton` was compiled using [commit 965e8eb of Futhark](https://github.com/diku-dk/futhark/commits/965e8eb):
 ```
-Futhark 0.16.0
-git: 965e8eb (Fri Jul 3 14:53:26 2020 +0200)
+Futhark 0.16.2
+git: HEAD @ 2cd88bd (Wed Jul 15 13:40:14 2020 +0200)
 Copyright (C) DIKU, University of Copenhagen, released under the ISC license.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
@@ -109,6 +109,18 @@ nothing to commit, working tree clean
 If this is not the case, first ensure you do have a clean checkout as above, then try again. Compiling with the correct
 Futhark version should produce new output (observable by timestamp) but no change of content ('nothing to commit,
 working treen clean').
+
+### Futhark Version
+
+Although binary Futhark releases do not print the associated commit in response to the version command, the commit from
+whose content they are built is well-documented. It can be found in the `commit_id` file of the unpacked binary release.
+
+The current version of `neptune_triton` was generated using Futhark v0.16.2, which was itself built from commit
+`2cd88bd1b64c1e7d3aebcfa41c3473be845277b7`. Users who wish to verify the accuracy of the claimed Futhark commit may
+check that commit out of the [Futhark repo](https://github.com/diku-dk/futhark) and build from source. Regenerating code
+with the source-built Futhark should still show no changes from the repositor version — except that the commit will have
+been added to `futhark-version.txt` as in the example above.
+
 
 ## Verify Generated Code is Safe
 

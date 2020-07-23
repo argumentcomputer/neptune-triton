@@ -1,7 +1,13 @@
 # neptune-triton ![crates.io](https://img.shields.io/crates/v/neptune-triton.svg) [![CircleCI](https://circleci.com/gh/filecoin-project/neptune.svg?style=svg)](https://circleci.com/gh/filecoin-project/neptune)
 
-`neptune-triton` is a Futhark implementation of the [Poseidon hash function](https://www.poseidon-hash.info/), targeting
-OpenCL for execution on GPU.
+`neptune-triton` is a Futhark implementation of the [Poseidon hash
+function](https://www.poseidon-hash.info/), targeting OpenCL for execution on GPU.
+
+`neputne-triton` has undergone a [security audit performed by Troels
+Henriksen](neptune-triton-security-audit-report.pdf) and been deemed free of *critical* or *major* security issues.
+Incidentally, the linked report contains a detailed analysis of the security guarantees (and their limits) provided by
+the [Futhark programming language](https://futhark-lang.org/) itself — many of which flow from its status as a purely
+functional programming language.
 
 This repository contains two packages: `neptune-triton-generator` and `neptune-triton`. The former is a code generator,
 and the latter is the resulting Rust library.
@@ -118,8 +124,8 @@ whose content they are built is well-documented. It can be found in the `commit_
 The current version of `neptune_triton` was generated using Futhark v0.16.2, which was itself built from commit
 `2cd88bd1b64c1e7d3aebcfa41c3473be845277b7`. Users who wish to verify the accuracy of the claimed Futhark commit may
 check that commit out of the [Futhark repo](https://github.com/diku-dk/futhark) and build from source. Regenerating code
-with the source-built Futhark should still show no changes from the repositor version — except that the commit will have
-been added to `futhark-version.txt` as in the example above.
+with the source-built Futhark should still show no changes from the repository version — except that the commit will
+have been added to `futhark-version.txt` as in the example above.
 
 
 ## Verify Generated Code is Safe

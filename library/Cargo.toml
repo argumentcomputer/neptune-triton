@@ -10,7 +10,7 @@ repository = "https://github.com/filecoin-project/neptune-triton/tree/master/lib
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-genfut = { version = "0.3.0", default-features = false, features = ["opencl"] }
+genfut = { git="https://github.com/erk-/genfut", branch="futhark-ctx-ref", default-features = false, features = ["opencl"] }
 
 [[bin]]
 name="codegen"

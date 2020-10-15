@@ -1,6 +1,7 @@
 use crate::bindings;
 use crate::traits::*;
 use crate::{Error, Result};
+use std::os::raw::c_int;
 
 pub(crate) trait FutharkType {
     type RustType: Default;
@@ -9,10 +10,10 @@ pub(crate) trait FutharkType {
     unsafe fn shape<C>(ctx: C, ptr: *const Self) -> *const i64
     where
         C: Into<*mut bindings::futhark_context>;
-    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
+    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType) -> Result<()>
     where
         C: Into<*mut bindings::futhark_context>;
-    unsafe fn free<C>(ctx: C, ptr: *mut Self)
+    unsafe fn free<C>(ctx: C, ptr: *mut Self) -> c_int
     where
         C: Into<*mut bindings::futhark_context>;
 }
@@ -40,21 +41,25 @@ impl FutharkType for futhark_i64_1d {
         let ctx = ctx.into();
         bindings::futhark_shape_i64_1d(ctx, ptr as *mut bindings::futhark_i64_1d)
     }
-    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
+    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType) -> Result<()>
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_values_i64_1d(ctx, ptr, dst);
+        let ret = bindings::futhark_values_i64_1d(ctx, ptr, dst);
+        if ret != 0 {
+            return Err(crate::FutharkError::new(ctx).into());
+        }
         // Sync the values to the array.
         bindings::futhark_context_sync(ctx);
+        Ok(())
     }
-    unsafe fn free<C>(ctx: C, ptr: *mut Self)
+    unsafe fn free<C>(ctx: C, ptr: *mut Self) -> ::std::os::raw::c_int
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_free_i64_1d(ctx, ptr);
+        bindings::futhark_free_i64_1d(ctx, ptr)
     }
 }
 
@@ -79,21 +84,25 @@ impl FutharkType for futhark_i64_2d {
         let ctx = ctx.into();
         bindings::futhark_shape_i64_2d(ctx, ptr as *mut bindings::futhark_i64_2d)
     }
-    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
+    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType) -> Result<()>
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_values_i64_2d(ctx, ptr, dst);
+        let ret = bindings::futhark_values_i64_2d(ctx, ptr, dst);
+        if ret != 0 {
+            return Err(crate::FutharkError::new(ctx).into());
+        }
         // Sync the values to the array.
         bindings::futhark_context_sync(ctx);
+        Ok(())
     }
-    unsafe fn free<C>(ctx: C, ptr: *mut Self)
+    unsafe fn free<C>(ctx: C, ptr: *mut Self) -> ::std::os::raw::c_int
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_free_i64_2d(ctx, ptr);
+        bindings::futhark_free_i64_2d(ctx, ptr)
     }
 }
 
@@ -118,21 +127,25 @@ impl FutharkType for futhark_u64_1d {
         let ctx = ctx.into();
         bindings::futhark_shape_u64_1d(ctx, ptr as *mut bindings::futhark_u64_1d)
     }
-    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
+    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType) -> Result<()>
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_values_u64_1d(ctx, ptr, dst);
+        let ret = bindings::futhark_values_u64_1d(ctx, ptr, dst);
+        if ret != 0 {
+            return Err(crate::FutharkError::new(ctx).into());
+        }
         // Sync the values to the array.
         bindings::futhark_context_sync(ctx);
+        Ok(())
     }
-    unsafe fn free<C>(ctx: C, ptr: *mut Self)
+    unsafe fn free<C>(ctx: C, ptr: *mut Self) -> ::std::os::raw::c_int
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_free_u64_1d(ctx, ptr);
+        bindings::futhark_free_u64_1d(ctx, ptr)
     }
 }
 
@@ -157,21 +170,25 @@ impl FutharkType for futhark_u64_2d {
         let ctx = ctx.into();
         bindings::futhark_shape_u64_2d(ctx, ptr as *mut bindings::futhark_u64_2d)
     }
-    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
+    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType) -> Result<()>
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_values_u64_2d(ctx, ptr, dst);
+        let ret = bindings::futhark_values_u64_2d(ctx, ptr, dst);
+        if ret != 0 {
+            return Err(crate::FutharkError::new(ctx).into());
+        }
         // Sync the values to the array.
         bindings::futhark_context_sync(ctx);
+        Ok(())
     }
-    unsafe fn free<C>(ctx: C, ptr: *mut Self)
+    unsafe fn free<C>(ctx: C, ptr: *mut Self) -> ::std::os::raw::c_int
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_free_u64_2d(ctx, ptr);
+        bindings::futhark_free_u64_2d(ctx, ptr)
     }
 }
 
@@ -196,21 +213,25 @@ impl FutharkType for futhark_u64_3d {
         let ctx = ctx.into();
         bindings::futhark_shape_u64_3d(ctx, ptr as *mut bindings::futhark_u64_3d)
     }
-    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType)
+    unsafe fn values<C>(ctx: C, ptr: *mut Self, dst: *mut Self::RustType) -> Result<()>
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_values_u64_3d(ctx, ptr, dst);
+        let ret = bindings::futhark_values_u64_3d(ctx, ptr, dst);
+        if ret != 0 {
+            return Err(crate::FutharkError::new(ctx).into());
+        }
         // Sync the values to the array.
         bindings::futhark_context_sync(ctx);
+        Ok(())
     }
-    unsafe fn free<C>(ctx: C, ptr: *mut Self)
+    unsafe fn free<C>(ctx: C, ptr: *mut Self) -> ::std::os::raw::c_int
     where
         C: Into<*mut bindings::futhark_context>,
     {
         let ctx = ctx.into();
-        bindings::futhark_free_u64_3d(ctx, ptr);
+        bindings::futhark_free_u64_3d(ctx, ptr)
     }
 }
 #[derive(Debug)]
@@ -261,20 +282,25 @@ impl Array_i64_1d {
         }
     }
 
-    pub fn to_vec(&self) -> (Vec<i64>, Vec<i64>) {
+    pub fn to_vec(&self) -> Result<(Vec<i64>, Vec<i64>)> {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
             let mut buffer: Vec<i64> = vec![i64::default(); elems];
-            let cint = futhark_i64_1d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
-            (buffer, shape.to_owned())
+            let cint = futhark_i64_1d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr())?;
+            Ok((buffer, shape.to_owned()))
         }
     }
 
     pub(crate) unsafe fn free_array(&mut self) {
-        futhark_i64_1d::free(self.ctx, self.as_raw_mut());
+        if futhark_i64_1d::free(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -334,20 +360,25 @@ impl Array_i64_2d {
         }
     }
 
-    pub fn to_vec(&self) -> (Vec<i64>, Vec<i64>) {
+    pub fn to_vec(&self) -> Result<(Vec<i64>, Vec<i64>)> {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
             let mut buffer: Vec<i64> = vec![i64::default(); elems];
-            let cint = futhark_i64_2d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
-            (buffer, shape.to_owned())
+            let cint = futhark_i64_2d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr())?;
+            Ok((buffer, shape.to_owned()))
         }
     }
 
     pub(crate) unsafe fn free_array(&mut self) {
-        futhark_i64_2d::free(self.ctx, self.as_raw_mut());
+        if futhark_i64_2d::free(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -407,20 +438,25 @@ impl Array_u64_1d {
         }
     }
 
-    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>) {
+    pub fn to_vec(&self) -> Result<(Vec<u64>, Vec<i64>)> {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
             let mut buffer: Vec<u64> = vec![u64::default(); elems];
-            let cint = futhark_u64_1d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
-            (buffer, shape.to_owned())
+            let cint = futhark_u64_1d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr())?;
+            Ok((buffer, shape.to_owned()))
         }
     }
 
     pub(crate) unsafe fn free_array(&mut self) {
-        futhark_u64_1d::free(self.ctx, self.as_raw_mut());
+        if futhark_u64_1d::free(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -480,20 +516,25 @@ impl Array_u64_2d {
         }
     }
 
-    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>) {
+    pub fn to_vec(&self) -> Result<(Vec<u64>, Vec<i64>)> {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
             let mut buffer: Vec<u64> = vec![u64::default(); elems];
-            let cint = futhark_u64_2d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
-            (buffer, shape.to_owned())
+            let cint = futhark_u64_2d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr())?;
+            Ok((buffer, shape.to_owned()))
         }
     }
 
     pub(crate) unsafe fn free_array(&mut self) {
-        futhark_u64_2d::free(self.ctx, self.as_raw_mut());
+        if futhark_u64_2d::free(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -553,20 +594,25 @@ impl Array_u64_3d {
         }
     }
 
-    pub fn to_vec(&self) -> (Vec<u64>, Vec<i64>) {
+    pub fn to_vec(&self) -> Result<(Vec<u64>, Vec<i64>)> {
         let ctx = self.ctx;
         unsafe {
             futhark_context_sync(ctx);
             let shape = Self::shape(ctx, self.as_raw());
             let elems = shape.iter().fold(1, |acc, e| acc * e) as usize;
             let mut buffer: Vec<u64> = vec![u64::default(); elems];
-            let cint = futhark_u64_3d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr());
-            (buffer, shape.to_owned())
+            let cint = futhark_u64_3d::values(ctx, self.as_raw_mut(), buffer.as_mut_ptr())?;
+            Ok((buffer, shape.to_owned()))
         }
     }
 
     pub(crate) unsafe fn free_array(&mut self) {
-        futhark_u64_3d::free(self.ctx, self.as_raw_mut());
+        if futhark_u64_3d::free(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 

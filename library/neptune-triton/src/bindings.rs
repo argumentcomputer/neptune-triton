@@ -3,6 +3,7 @@
 pub const _STDINT_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;
 pub const _DEFAULT_SOURCE: u32 = 1;
+pub const __GLIBC_USE_ISOC2X: u32 = 0;
 pub const __USE_ISOC11: u32 = 1;
 pub const __USE_ISOC99: u32 = 1;
 pub const __USE_ISOC95: u32 = 1;
@@ -20,29 +21,37 @@ pub const __USE_MISC: u32 = 1;
 pub const __USE_ATFILE: u32 = 1;
 pub const __USE_FORTIFY_LEVEL: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_GETS: u32 = 0;
+pub const __GLIBC_USE_DEPRECATED_SCANF: u32 = 0;
 pub const _STDC_PREDEF_H: u32 = 1;
 pub const __STDC_IEC_559__: u32 = 1;
 pub const __STDC_IEC_559_COMPLEX__: u32 = 1;
 pub const __STDC_ISO_10646__: u32 = 201706;
 pub const __GNU_LIBRARY__: u32 = 6;
 pub const __GLIBC__: u32 = 2;
-pub const __GLIBC_MINOR__: u32 = 28;
+pub const __GLIBC_MINOR__: u32 = 32;
 pub const _SYS_CDEFS_H: u32 = 1;
 pub const __glibc_c99_flexarr_available: u32 = 1;
 pub const __WORDSIZE: u32 = 64;
 pub const __WORDSIZE_TIME64_COMPAT32: u32 = 1;
 pub const __SYSCALL_WORDSIZE: u32 = 64;
+pub const __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI: u32 = 0;
 pub const __HAVE_GENERIC_SELECTION: u32 = 1;
 pub const __GLIBC_USE_LIB_EXT2: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_BFP_EXT: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_BFP_EXT_C2X: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_FUNCS_EXT: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C2X: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_TYPES_EXT: u32 = 0;
 pub const _BITS_TYPES_H: u32 = 1;
+pub const __TIMESIZE: u32 = 64;
 pub const _BITS_TYPESIZES_H: u32 = 1;
 pub const __OFF_T_MATCHES_OFF64_T: u32 = 1;
 pub const __INO_T_MATCHES_INO64_T: u32 = 1;
 pub const __RLIM_T_MATCHES_RLIM64_T: u32 = 1;
+pub const __STATFS_MATCHES_STATFS64: u32 = 1;
+pub const __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64: u32 = 1;
 pub const __FD_SETSIZE: u32 = 1024;
+pub const _BITS_TIME64_H: u32 = 1;
 pub const _BITS_WCHAR_H: u32 = 1;
 pub const _BITS_STDINT_INTN_H: u32 = 1;
 pub const _BITS_STDINT_UINTN_H: u32 = 1;
@@ -87,9 +96,6 @@ pub const true_: u32 = 1;
 pub const false_: u32 = 0;
 pub const __bool_true_false_are_defined: u32 = 1;
 pub const CL_TARGET_OPENCL_VERSION: u32 = 120;
-pub const CL_VERSION_1_2: u32 = 1;
-pub const CL_VERSION_1_1: u32 = 1;
-pub const CL_VERSION_1_0: u32 = 1;
 pub const CL_CHAR_BIT: u32 = 8;
 pub const CL_SCHAR_MAX: u32 = 127;
 pub const CL_SCHAR_MIN: i32 = -128;
@@ -139,19 +145,19 @@ pub const CL_M_2_PI: f64 = 0.6366197723675814;
 pub const CL_M_2_SQRTPI: f64 = 1.1283791670955126;
 pub const CL_M_SQRT2: f64 = 1.4142135623730951;
 pub const CL_M_SQRT1_2: f64 = 0.7071067811865476;
-pub const CL_M_E_F: f64 = 2.718281828;
-pub const CL_M_LOG2E_F: f64 = 1.442695041;
-pub const CL_M_LOG10E_F: f64 = 0.434294482;
-pub const CL_M_LN2_F: f64 = 0.693147181;
-pub const CL_M_LN10_F: f64 = 2.302585093;
-pub const CL_M_PI_F: f64 = 3.141592654;
-pub const CL_M_PI_2_F: f64 = 1.570796327;
-pub const CL_M_PI_4_F: f64 = 0.785398163;
-pub const CL_M_1_PI_F: f64 = 0.318309886;
-pub const CL_M_2_PI_F: f64 = 0.636619772;
-pub const CL_M_2_SQRTPI_F: f64 = 1.128379167;
-pub const CL_M_SQRT2_F: f64 = 1.414213562;
-pub const CL_M_SQRT1_2_F: f64 = 0.707106781;
+pub const CL_M_E_F: f64 = 2.71828174591064;
+pub const CL_M_LOG2E_F: f64 = 1.44269502162933;
+pub const CL_M_LOG10E_F: f64 = 0.4342944920063;
+pub const CL_M_LN2_F: f64 = 0.6931471824646;
+pub const CL_M_LN10_F: f64 = 2.30258512496948;
+pub const CL_M_PI_F: f64 = 3.14159274101257;
+pub const CL_M_PI_2_F: f64 = 1.57079637050629;
+pub const CL_M_PI_4_F: f64 = 0.78539818525314;
+pub const CL_M_1_PI_F: f64 = 0.31830987334251;
+pub const CL_M_2_PI_F: f64 = 0.63661974668503;
+pub const CL_M_2_SQRTPI_F: f64 = 1.1283792257309;
+pub const CL_M_SQRT2_F: f64 = 1.41421353816986;
+pub const CL_M_SQRT1_2_F: f64 = 0.70710676908493;
 pub const CL_MAXFLOAT: f64 = 340282346638528860000000000000000000000.0;
 pub const _STDLIB_H: u32 = 1;
 pub const WNOHANG: u32 = 1;
@@ -163,7 +169,6 @@ pub const WNOWAIT: u32 = 16777216;
 pub const __WNOTHREAD: u32 = 536870912;
 pub const __WALL: u32 = 1073741824;
 pub const __WCLONE: u32 = 2147483648;
-pub const __ENUM_IDTYPE_T: u32 = 1;
 pub const __W_CONTINUED: u32 = 65535;
 pub const __WCOREFLAG: u32 = 128;
 pub const __HAVE_FLOAT128: u32 = 0;
@@ -194,9 +199,11 @@ pub const __time_t_defined: u32 = 1;
 pub const __timer_t_defined: u32 = 1;
 pub const __BIT_TYPES_DEFINED__: u32 = 1;
 pub const _ENDIAN_H: u32 = 1;
+pub const _BITS_ENDIAN_H: u32 = 1;
 pub const __LITTLE_ENDIAN: u32 = 1234;
 pub const __BIG_ENDIAN: u32 = 4321;
 pub const __PDP_ENDIAN: u32 = 3412;
+pub const _BITS_ENDIANNESS_H: u32 = 1;
 pub const __BYTE_ORDER: u32 = 1234;
 pub const __FLOAT_WORD_ORDER: u32 = 1234;
 pub const LITTLE_ENDIAN: u32 = 1234;
@@ -206,7 +213,6 @@ pub const BYTE_ORDER: u32 = 1234;
 pub const _BITS_BYTESWAP_H: u32 = 1;
 pub const _BITS_UINTN_IDENTITY_H: u32 = 1;
 pub const _SYS_SELECT_H: u32 = 1;
-pub const __FD_ZERO_STOS: &'static [u8; 6usize] = b"stosq\0";
 pub const __sigset_t_defined: u32 = 1;
 pub const __timeval_defined: u32 = 1;
 pub const _STRUCT_TIMESPEC: u32 = 1;
@@ -223,10 +229,7 @@ pub const __SIZEOF_PTHREAD_COND_T: u32 = 48;
 pub const __SIZEOF_PTHREAD_CONDATTR_T: u32 = 4;
 pub const __SIZEOF_PTHREAD_RWLOCKATTR_T: u32 = 8;
 pub const __SIZEOF_PTHREAD_BARRIERATTR_T: u32 = 4;
-pub const __PTHREAD_MUTEX_LOCK_ELISION: u32 = 1;
-pub const __PTHREAD_MUTEX_NUSERS_AFTER_KIND: u32 = 0;
-pub const __PTHREAD_MUTEX_USE_UNION: u32 = 0;
-pub const __PTHREAD_RWLOCK_INT_FLAGS_SHARED: u32 = 1;
+pub const _THREAD_MUTEX_INTERNAL_H: u32 = 1;
 pub const __PTHREAD_MUTEX_HAVE_PREV: u32 = 1;
 pub const __have_pthread_attr_t: u32 = 1;
 pub const _ALLOCA_H: u32 = 1;
@@ -342,6 +345,16 @@ pub const CL_INVALID_IMAGE_DESCRIPTOR: i32 = -65;
 pub const CL_INVALID_COMPILER_OPTIONS: i32 = -66;
 pub const CL_INVALID_LINKER_OPTIONS: i32 = -67;
 pub const CL_INVALID_DEVICE_PARTITION_COUNT: i32 = -68;
+pub const CL_INVALID_PIPE_SIZE: i32 = -69;
+pub const CL_INVALID_DEVICE_QUEUE: i32 = -70;
+pub const CL_INVALID_SPEC_ID: i32 = -71;
+pub const CL_MAX_SIZE_RESTRICTION_EXCEEDED: i32 = -72;
+pub const CL_VERSION_1_0: u32 = 1;
+pub const CL_VERSION_1_1: u32 = 1;
+pub const CL_VERSION_1_2: u32 = 1;
+pub const CL_VERSION_2_0: u32 = 1;
+pub const CL_VERSION_2_1: u32 = 1;
+pub const CL_VERSION_2_2: u32 = 1;
 pub const CL_FALSE: u32 = 0;
 pub const CL_TRUE: u32 = 1;
 pub const CL_BLOCKING: u32 = 1;
@@ -351,6 +364,7 @@ pub const CL_PLATFORM_VERSION: u32 = 2305;
 pub const CL_PLATFORM_NAME: u32 = 2306;
 pub const CL_PLATFORM_VENDOR: u32 = 2307;
 pub const CL_PLATFORM_EXTENSIONS: u32 = 2308;
+pub const CL_PLATFORM_HOST_TIMER_RESOLUTION: u32 = 2309;
 pub const CL_DEVICE_TYPE_DEFAULT: u32 = 1;
 pub const CL_DEVICE_TYPE_CPU: u32 = 2;
 pub const CL_DEVICE_TYPE_GPU: u32 = 4;
@@ -400,6 +414,7 @@ pub const CL_DEVICE_AVAILABLE: u32 = 4135;
 pub const CL_DEVICE_COMPILER_AVAILABLE: u32 = 4136;
 pub const CL_DEVICE_EXECUTION_CAPABILITIES: u32 = 4137;
 pub const CL_DEVICE_QUEUE_PROPERTIES: u32 = 4138;
+pub const CL_DEVICE_QUEUE_ON_HOST_PROPERTIES: u32 = 4138;
 pub const CL_DEVICE_NAME: u32 = 4139;
 pub const CL_DEVICE_VENDOR: u32 = 4140;
 pub const CL_DRIVER_VERSION: u32 = 4141;
@@ -433,6 +448,24 @@ pub const CL_DEVICE_PREFERRED_INTEROP_USER_SYNC: u32 = 4168;
 pub const CL_DEVICE_PRINTF_BUFFER_SIZE: u32 = 4169;
 pub const CL_DEVICE_IMAGE_PITCH_ALIGNMENT: u32 = 4170;
 pub const CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT: u32 = 4171;
+pub const CL_DEVICE_MAX_READ_WRITE_IMAGE_ARGS: u32 = 4172;
+pub const CL_DEVICE_MAX_GLOBAL_VARIABLE_SIZE: u32 = 4173;
+pub const CL_DEVICE_QUEUE_ON_DEVICE_PROPERTIES: u32 = 4174;
+pub const CL_DEVICE_QUEUE_ON_DEVICE_PREFERRED_SIZE: u32 = 4175;
+pub const CL_DEVICE_QUEUE_ON_DEVICE_MAX_SIZE: u32 = 4176;
+pub const CL_DEVICE_MAX_ON_DEVICE_QUEUES: u32 = 4177;
+pub const CL_DEVICE_MAX_ON_DEVICE_EVENTS: u32 = 4178;
+pub const CL_DEVICE_SVM_CAPABILITIES: u32 = 4179;
+pub const CL_DEVICE_GLOBAL_VARIABLE_PREFERRED_TOTAL_SIZE: u32 = 4180;
+pub const CL_DEVICE_MAX_PIPE_ARGS: u32 = 4181;
+pub const CL_DEVICE_PIPE_MAX_ACTIVE_RESERVATIONS: u32 = 4182;
+pub const CL_DEVICE_PIPE_MAX_PACKET_SIZE: u32 = 4183;
+pub const CL_DEVICE_PREFERRED_PLATFORM_ATOMIC_ALIGNMENT: u32 = 4184;
+pub const CL_DEVICE_PREFERRED_GLOBAL_ATOMIC_ALIGNMENT: u32 = 4185;
+pub const CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT: u32 = 4186;
+pub const CL_DEVICE_IL_VERSION: u32 = 4187;
+pub const CL_DEVICE_MAX_NUM_SUB_GROUPS: u32 = 4188;
+pub const CL_DEVICE_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS: u32 = 4189;
 pub const CL_FP_DENORM: u32 = 1;
 pub const CL_FP_INF_NAN: u32 = 2;
 pub const CL_FP_ROUND_TO_NEAREST: u32 = 4;
@@ -450,6 +483,8 @@ pub const CL_EXEC_KERNEL: u32 = 1;
 pub const CL_EXEC_NATIVE_KERNEL: u32 = 2;
 pub const CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE: u32 = 1;
 pub const CL_QUEUE_PROFILING_ENABLE: u32 = 2;
+pub const CL_QUEUE_ON_DEVICE: u32 = 4;
+pub const CL_QUEUE_ON_DEVICE_DEFAULT: u32 = 8;
 pub const CL_CONTEXT_REFERENCE_COUNT: u32 = 4224;
 pub const CL_CONTEXT_DEVICES: u32 = 4225;
 pub const CL_CONTEXT_PROPERTIES: u32 = 4226;
@@ -466,10 +501,16 @@ pub const CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE: u32 = 4;
 pub const CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE: u32 = 8;
 pub const CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE: u32 = 16;
 pub const CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE: u32 = 32;
+pub const CL_DEVICE_SVM_COARSE_GRAIN_BUFFER: u32 = 1;
+pub const CL_DEVICE_SVM_FINE_GRAIN_BUFFER: u32 = 2;
+pub const CL_DEVICE_SVM_FINE_GRAIN_SYSTEM: u32 = 4;
+pub const CL_DEVICE_SVM_ATOMICS: u32 = 8;
 pub const CL_QUEUE_CONTEXT: u32 = 4240;
 pub const CL_QUEUE_DEVICE: u32 = 4241;
 pub const CL_QUEUE_REFERENCE_COUNT: u32 = 4242;
 pub const CL_QUEUE_PROPERTIES: u32 = 4243;
+pub const CL_QUEUE_SIZE: u32 = 4244;
+pub const CL_QUEUE_DEVICE_DEFAULT: u32 = 4245;
 pub const CL_MEM_READ_WRITE: u32 = 1;
 pub const CL_MEM_WRITE_ONLY: u32 = 2;
 pub const CL_MEM_READ_ONLY: u32 = 4;
@@ -479,6 +520,9 @@ pub const CL_MEM_COPY_HOST_PTR: u32 = 32;
 pub const CL_MEM_HOST_WRITE_ONLY: u32 = 128;
 pub const CL_MEM_HOST_READ_ONLY: u32 = 256;
 pub const CL_MEM_HOST_NO_ACCESS: u32 = 512;
+pub const CL_MEM_SVM_FINE_GRAIN_BUFFER: u32 = 1024;
+pub const CL_MEM_SVM_ATOMICS: u32 = 2048;
+pub const CL_MEM_KERNEL_READ_AND_WRITE: u32 = 4096;
 pub const CL_MIGRATE_MEM_OBJECT_HOST: u32 = 1;
 pub const CL_MIGRATE_MEM_OBJECT_CONTENT_UNDEFINED: u32 = 2;
 pub const CL_R: u32 = 4272;
@@ -496,6 +540,11 @@ pub const CL_RGx: u32 = 4283;
 pub const CL_RGBx: u32 = 4284;
 pub const CL_DEPTH: u32 = 4285;
 pub const CL_DEPTH_STENCIL: u32 = 4286;
+pub const CL_sRGB: u32 = 4287;
+pub const CL_sRGBx: u32 = 4288;
+pub const CL_sRGBA: u32 = 4289;
+pub const CL_sBGRA: u32 = 4290;
+pub const CL_ABGR: u32 = 4291;
 pub const CL_SNORM_INT8: u32 = 4304;
 pub const CL_SNORM_INT16: u32 = 4305;
 pub const CL_UNORM_INT8: u32 = 4306;
@@ -512,6 +561,7 @@ pub const CL_UNSIGNED_INT32: u32 = 4316;
 pub const CL_HALF_FLOAT: u32 = 4317;
 pub const CL_FLOAT: u32 = 4318;
 pub const CL_UNORM_INT24: u32 = 4319;
+pub const CL_UNORM_INT_101010_2: u32 = 4320;
 pub const CL_MEM_OBJECT_BUFFER: u32 = 4336;
 pub const CL_MEM_OBJECT_IMAGE2D: u32 = 4337;
 pub const CL_MEM_OBJECT_IMAGE3D: u32 = 4338;
@@ -519,6 +569,7 @@ pub const CL_MEM_OBJECT_IMAGE2D_ARRAY: u32 = 4339;
 pub const CL_MEM_OBJECT_IMAGE1D: u32 = 4340;
 pub const CL_MEM_OBJECT_IMAGE1D_ARRAY: u32 = 4341;
 pub const CL_MEM_OBJECT_IMAGE1D_BUFFER: u32 = 4342;
+pub const CL_MEM_OBJECT_PIPE: u32 = 4343;
 pub const CL_MEM_TYPE: u32 = 4352;
 pub const CL_MEM_FLAGS: u32 = 4353;
 pub const CL_MEM_SIZE: u32 = 4354;
@@ -528,6 +579,7 @@ pub const CL_MEM_REFERENCE_COUNT: u32 = 4357;
 pub const CL_MEM_CONTEXT: u32 = 4358;
 pub const CL_MEM_ASSOCIATED_MEMOBJECT: u32 = 4359;
 pub const CL_MEM_OFFSET: u32 = 4360;
+pub const CL_MEM_USES_SVM_POINTER: u32 = 4361;
 pub const CL_IMAGE_FORMAT: u32 = 4368;
 pub const CL_IMAGE_ELEMENT_SIZE: u32 = 4369;
 pub const CL_IMAGE_ROW_PITCH: u32 = 4370;
@@ -539,6 +591,8 @@ pub const CL_IMAGE_ARRAY_SIZE: u32 = 4375;
 pub const CL_IMAGE_BUFFER: u32 = 4376;
 pub const CL_IMAGE_NUM_MIP_LEVELS: u32 = 4377;
 pub const CL_IMAGE_NUM_SAMPLES: u32 = 4378;
+pub const CL_PIPE_PACKET_SIZE: u32 = 4384;
+pub const CL_PIPE_MAX_PACKETS: u32 = 4385;
 pub const CL_ADDRESS_NONE: u32 = 4400;
 pub const CL_ADDRESS_CLAMP_TO_EDGE: u32 = 4401;
 pub const CL_ADDRESS_CLAMP: u32 = 4402;
@@ -551,6 +605,9 @@ pub const CL_SAMPLER_CONTEXT: u32 = 4433;
 pub const CL_SAMPLER_NORMALIZED_COORDS: u32 = 4434;
 pub const CL_SAMPLER_ADDRESSING_MODE: u32 = 4435;
 pub const CL_SAMPLER_FILTER_MODE: u32 = 4436;
+pub const CL_SAMPLER_MIP_FILTER_MODE: u32 = 4437;
+pub const CL_SAMPLER_LOD_MIN: u32 = 4438;
+pub const CL_SAMPLER_LOD_MAX: u32 = 4439;
 pub const CL_MAP_READ: u32 = 1;
 pub const CL_MAP_WRITE: u32 = 2;
 pub const CL_MAP_WRITE_INVALIDATE_REGION: u32 = 4;
@@ -563,10 +620,14 @@ pub const CL_PROGRAM_BINARY_SIZES: u32 = 4453;
 pub const CL_PROGRAM_BINARIES: u32 = 4454;
 pub const CL_PROGRAM_NUM_KERNELS: u32 = 4455;
 pub const CL_PROGRAM_KERNEL_NAMES: u32 = 4456;
+pub const CL_PROGRAM_IL: u32 = 4457;
+pub const CL_PROGRAM_SCOPE_GLOBAL_CTORS_PRESENT: u32 = 4458;
+pub const CL_PROGRAM_SCOPE_GLOBAL_DTORS_PRESENT: u32 = 4459;
 pub const CL_PROGRAM_BUILD_STATUS: u32 = 4481;
 pub const CL_PROGRAM_BUILD_OPTIONS: u32 = 4482;
 pub const CL_PROGRAM_BUILD_LOG: u32 = 4483;
 pub const CL_PROGRAM_BINARY_TYPE: u32 = 4484;
+pub const CL_PROGRAM_BUILD_GLOBAL_VARIABLE_TOTAL_SIZE: u32 = 4485;
 pub const CL_PROGRAM_BINARY_TYPE_NONE: u32 = 0;
 pub const CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT: u32 = 1;
 pub const CL_PROGRAM_BINARY_TYPE_LIBRARY: u32 = 2;
@@ -581,6 +642,8 @@ pub const CL_KERNEL_REFERENCE_COUNT: u32 = 4498;
 pub const CL_KERNEL_CONTEXT: u32 = 4499;
 pub const CL_KERNEL_PROGRAM: u32 = 4500;
 pub const CL_KERNEL_ATTRIBUTES: u32 = 4501;
+pub const CL_KERNEL_MAX_NUM_SUB_GROUPS: u32 = 4537;
+pub const CL_KERNEL_COMPILE_NUM_SUB_GROUPS: u32 = 4538;
 pub const CL_KERNEL_ARG_ADDRESS_QUALIFIER: u32 = 4502;
 pub const CL_KERNEL_ARG_ACCESS_QUALIFIER: u32 = 4503;
 pub const CL_KERNEL_ARG_TYPE_NAME: u32 = 4504;
@@ -598,12 +661,18 @@ pub const CL_KERNEL_ARG_TYPE_NONE: u32 = 0;
 pub const CL_KERNEL_ARG_TYPE_CONST: u32 = 1;
 pub const CL_KERNEL_ARG_TYPE_RESTRICT: u32 = 2;
 pub const CL_KERNEL_ARG_TYPE_VOLATILE: u32 = 4;
+pub const CL_KERNEL_ARG_TYPE_PIPE: u32 = 8;
 pub const CL_KERNEL_WORK_GROUP_SIZE: u32 = 4528;
 pub const CL_KERNEL_COMPILE_WORK_GROUP_SIZE: u32 = 4529;
 pub const CL_KERNEL_LOCAL_MEM_SIZE: u32 = 4530;
 pub const CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE: u32 = 4531;
 pub const CL_KERNEL_PRIVATE_MEM_SIZE: u32 = 4532;
 pub const CL_KERNEL_GLOBAL_WORK_SIZE: u32 = 4533;
+pub const CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE: u32 = 8243;
+pub const CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE: u32 = 8244;
+pub const CL_KERNEL_LOCAL_SIZE_FOR_SUB_GROUP_COUNT: u32 = 4536;
+pub const CL_KERNEL_EXEC_INFO_SVM_PTRS: u32 = 4534;
+pub const CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM: u32 = 4535;
 pub const CL_EVENT_COMMAND_QUEUE: u32 = 4560;
 pub const CL_EVENT_COMMAND_TYPE: u32 = 4561;
 pub const CL_EVENT_REFERENCE_COUNT: u32 = 4562;
@@ -634,6 +703,11 @@ pub const CL_COMMAND_BARRIER: u32 = 4613;
 pub const CL_COMMAND_MIGRATE_MEM_OBJECTS: u32 = 4614;
 pub const CL_COMMAND_FILL_BUFFER: u32 = 4615;
 pub const CL_COMMAND_FILL_IMAGE: u32 = 4616;
+pub const CL_COMMAND_SVM_FREE: u32 = 4617;
+pub const CL_COMMAND_SVM_MEMCPY: u32 = 4618;
+pub const CL_COMMAND_SVM_MEMFILL: u32 = 4619;
+pub const CL_COMMAND_SVM_MAP: u32 = 4620;
+pub const CL_COMMAND_SVM_UNMAP: u32 = 4621;
 pub const CL_COMPLETE: u32 = 0;
 pub const CL_RUNNING: u32 = 1;
 pub const CL_SUBMITTED: u32 = 2;
@@ -643,6 +717,7 @@ pub const CL_PROFILING_COMMAND_QUEUED: u32 = 4736;
 pub const CL_PROFILING_COMMAND_SUBMIT: u32 = 4737;
 pub const CL_PROFILING_COMMAND_START: u32 = 4738;
 pub const CL_PROFILING_COMMAND_END: u32 = 4739;
+pub const CL_PROFILING_COMMAND_COMPLETE: u32 = 4740;
 pub type __u_char = ::std::os::raw::c_uchar;
 pub type __u_short = ::std::os::raw::c_ushort;
 pub type __u_int = ::std::os::raw::c_uint;
@@ -712,6 +787,7 @@ pub type __id_t = ::std::os::raw::c_uint;
 pub type __time_t = ::std::os::raw::c_long;
 pub type __useconds_t = ::std::os::raw::c_uint;
 pub type __suseconds_t = ::std::os::raw::c_long;
+pub type __suseconds64_t = ::std::os::raw::c_long;
 pub type __daddr_t = ::std::os::raw::c_int;
 pub type __key_t = ::std::os::raw::c_int;
 pub type __clockid_t = ::std::os::raw::c_int;
@@ -819,11 +895,8 @@ pub type __v8qi = [::std::os::raw::c_char; 8usize];
 pub type __v4si = [::std::os::raw::c_int; 4usize];
 pub type __v4sf = [f32; 4usize];
 pub type __m128 = [f32; 4usize];
+pub type __m128_u = [f32; 4usize];
 pub type __v4su = [::std::os::raw::c_uint; 4usize];
-pub const idtype_t_P_ALL: idtype_t = 0;
-pub const idtype_t_P_PID: idtype_t = 1;
-pub const idtype_t_P_PGID: idtype_t = 2;
-pub type idtype_t = u32;
 pub type _Float32 = f32;
 pub type _Float64 = f64;
 pub type _Float32x = f64;
@@ -1054,10 +1127,10 @@ pub type timer_t = __timer_t;
 pub type ulong = ::std::os::raw::c_ulong;
 pub type ushort = ::std::os::raw::c_ushort;
 pub type uint = ::std::os::raw::c_uint;
-pub type u_int8_t = ::std::os::raw::c_uchar;
-pub type u_int16_t = ::std::os::raw::c_ushort;
-pub type u_int32_t = ::std::os::raw::c_uint;
-pub type u_int64_t = ::std::os::raw::c_ulong;
+pub type u_int8_t = __uint8_t;
+pub type u_int16_t = __uint16_t;
+pub type u_int32_t = __uint32_t;
+pub type u_int64_t = __uint64_t;
 pub type register_t = ::std::os::raw::c_long;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1222,6 +1295,180 @@ pub type fsblkcnt_t = __fsblkcnt_t;
 pub type fsfilcnt_t = __fsfilcnt_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct __pthread_internal_list {
+    pub __prev: *mut __pthread_internal_list,
+    pub __next: *mut __pthread_internal_list,
+}
+#[test]
+fn bindgen_test_layout___pthread_internal_list() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_internal_list>(),
+        16usize,
+        concat!("Size of: ", stringify!(__pthread_internal_list))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_internal_list>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_internal_list))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_internal_list>())).__prev as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_internal_list),
+            "::",
+            stringify!(__prev)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_internal_list>())).__next as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_internal_list),
+            "::",
+            stringify!(__next)
+        )
+    );
+}
+pub type __pthread_list_t = __pthread_internal_list;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_internal_slist {
+    pub __next: *mut __pthread_internal_slist,
+}
+#[test]
+fn bindgen_test_layout___pthread_internal_slist() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_internal_slist>(),
+        8usize,
+        concat!("Size of: ", stringify!(__pthread_internal_slist))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_internal_slist>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_internal_slist))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_internal_slist>())).__next as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_internal_slist),
+            "::",
+            stringify!(__next)
+        )
+    );
+}
+pub type __pthread_slist_t = __pthread_internal_slist;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_mutex_s {
+    pub __lock: ::std::os::raw::c_int,
+    pub __count: ::std::os::raw::c_uint,
+    pub __owner: ::std::os::raw::c_int,
+    pub __nusers: ::std::os::raw::c_uint,
+    pub __kind: ::std::os::raw::c_int,
+    pub __spins: ::std::os::raw::c_short,
+    pub __elision: ::std::os::raw::c_short,
+    pub __list: __pthread_list_t,
+}
+#[test]
+fn bindgen_test_layout___pthread_mutex_s() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_mutex_s>(),
+        40usize,
+        concat!("Size of: ", stringify!(__pthread_mutex_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_mutex_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_mutex_s))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__lock as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__lock)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__count as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__count)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__owner as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__owner)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__nusers as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__nusers)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__kind as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__kind)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__spins as *const _ as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__spins)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__elision as *const _ as usize },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__elision)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__list as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__list)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct __pthread_rwlock_arch_t {
     pub __readers: ::std::os::raw::c_uint,
     pub __writers: ::std::os::raw::c_uint,
@@ -1380,151 +1627,6 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
             stringify!(__pthread_rwlock_arch_t),
             "::",
             stringify!(__flags)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __pthread_internal_list {
-    pub __prev: *mut __pthread_internal_list,
-    pub __next: *mut __pthread_internal_list,
-}
-#[test]
-fn bindgen_test_layout___pthread_internal_list() {
-    assert_eq!(
-        ::std::mem::size_of::<__pthread_internal_list>(),
-        16usize,
-        concat!("Size of: ", stringify!(__pthread_internal_list))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__pthread_internal_list>(),
-        8usize,
-        concat!("Alignment of ", stringify!(__pthread_internal_list))
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_internal_list>())).__prev as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_internal_list),
-            "::",
-            stringify!(__prev)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_internal_list>())).__next as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_internal_list),
-            "::",
-            stringify!(__next)
-        )
-    );
-}
-pub type __pthread_list_t = __pthread_internal_list;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __pthread_mutex_s {
-    pub __lock: ::std::os::raw::c_int,
-    pub __count: ::std::os::raw::c_uint,
-    pub __owner: ::std::os::raw::c_int,
-    pub __nusers: ::std::os::raw::c_uint,
-    pub __kind: ::std::os::raw::c_int,
-    pub __spins: ::std::os::raw::c_short,
-    pub __elision: ::std::os::raw::c_short,
-    pub __list: __pthread_list_t,
-}
-#[test]
-fn bindgen_test_layout___pthread_mutex_s() {
-    assert_eq!(
-        ::std::mem::size_of::<__pthread_mutex_s>(),
-        40usize,
-        concat!("Size of: ", stringify!(__pthread_mutex_s))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__pthread_mutex_s>(),
-        8usize,
-        concat!("Alignment of ", stringify!(__pthread_mutex_s))
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__lock as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__lock)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__count as *const _ as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__count)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__owner as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__owner)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__nusers as *const _ as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__nusers)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__kind as *const _ as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__kind)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__spins as *const _ as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__spins)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__elision as *const _ as usize },
-        22usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__elision)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__list as *const _ as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__list)
         )
     );
 }
@@ -1791,6 +1893,36 @@ fn bindgen_test_layout___pthread_cond_s() {
             stringify!(__pthread_cond_s),
             "::",
             stringify!(__g_signals)
+        )
+    );
+}
+pub type __tss_t = ::std::os::raw::c_uint;
+pub type __thrd_t = ::std::os::raw::c_ulong;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __once_flag {
+    pub __data: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout___once_flag() {
+    assert_eq!(
+        ::std::mem::size_of::<__once_flag>(),
+        4usize,
+        concat!("Size of: ", stringify!(__once_flag))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__once_flag>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__once_flag))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__once_flag>())).__data as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__once_flag),
+            "::",
+            stringify!(__data)
         )
     );
 }
@@ -2502,6 +2634,13 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
+    pub fn reallocarray(
+        __ptr: *mut ::std::os::raw::c_void,
+        __nmemb: size_t,
+        __size: size_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
     pub fn free(__ptr: *mut ::std::os::raw::c_void);
 }
 extern "C" {
@@ -2776,6 +2915,8 @@ extern "C" {
 }
 pub type __m128d = [f64; 2usize];
 pub type __m128i = [::std::os::raw::c_longlong; 2usize];
+pub type __m128d_u = [f64; 2usize];
+pub type __m128i_u = [::std::os::raw::c_longlong; 2usize];
 pub type __v2df = [f64; 2usize];
 pub type __v2di = [::std::os::raw::c_longlong; 2usize];
 pub type __v8hi = [::std::os::raw::c_short; 8usize];
@@ -15003,15 +15144,18 @@ pub type cl_device_fp_config = cl_bitfield;
 pub type cl_device_mem_cache_type = cl_uint;
 pub type cl_device_local_mem_type = cl_uint;
 pub type cl_device_exec_capabilities = cl_bitfield;
+pub type cl_device_svm_capabilities = cl_bitfield;
 pub type cl_command_queue_properties = cl_bitfield;
 pub type cl_device_partition_property = isize;
 pub type cl_device_affinity_domain = cl_bitfield;
 pub type cl_context_properties = isize;
 pub type cl_context_info = cl_uint;
+pub type cl_queue_properties = cl_bitfield;
 pub type cl_command_queue_info = cl_uint;
 pub type cl_channel_order = cl_uint;
 pub type cl_channel_type = cl_uint;
 pub type cl_mem_flags = cl_bitfield;
+pub type cl_svm_mem_flags = cl_bitfield;
 pub type cl_mem_object_type = cl_uint;
 pub type cl_mem_info = cl_uint;
 pub type cl_mem_migration_flags = cl_bitfield;
@@ -15021,6 +15165,8 @@ pub type cl_addressing_mode = cl_uint;
 pub type cl_filter_mode = cl_uint;
 pub type cl_sampler_info = cl_uint;
 pub type cl_map_flags = cl_bitfield;
+pub type cl_pipe_properties = isize;
+pub type cl_pipe_info = cl_uint;
 pub type cl_program_info = cl_uint;
 pub type cl_program_build_info = cl_uint;
 pub type cl_program_binary_type = cl_uint;
@@ -15031,9 +15177,12 @@ pub type cl_kernel_arg_address_qualifier = cl_uint;
 pub type cl_kernel_arg_access_qualifier = cl_uint;
 pub type cl_kernel_arg_type_qualifier = cl_bitfield;
 pub type cl_kernel_work_group_info = cl_uint;
+pub type cl_kernel_sub_group_info = cl_uint;
 pub type cl_event_info = cl_uint;
 pub type cl_command_type = cl_uint;
 pub type cl_profiling_info = cl_uint;
+pub type cl_sampler_properties = cl_bitfield;
+pub type cl_kernel_exec_info = cl_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _cl_image_format {
@@ -15330,6 +15479,23 @@ extern "C" {
     pub fn clReleaseDevice(arg1: cl_device_id) -> cl_int;
 }
 extern "C" {
+    pub fn clSetDefaultDeviceCommandQueue(
+        arg1: cl_context,
+        arg2: cl_device_id,
+        arg3: cl_command_queue,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clGetDeviceAndHostTimer(
+        arg1: cl_device_id,
+        arg2: *mut cl_ulong,
+        arg3: *mut cl_ulong,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clGetHostTimer(arg1: cl_device_id, arg2: *mut cl_ulong) -> cl_int;
+}
+extern "C" {
     pub fn clCreateContext(
         arg1: *const cl_context_properties,
         arg2: cl_uint,
@@ -15378,6 +15544,14 @@ extern "C" {
     ) -> cl_int;
 }
 extern "C" {
+    pub fn clCreateCommandQueueWithProperties(
+        arg1: cl_context,
+        arg2: cl_device_id,
+        arg3: *const cl_queue_properties,
+        arg4: *mut cl_int,
+    ) -> cl_command_queue;
+}
+extern "C" {
     pub fn clRetainCommandQueue(arg1: cl_command_queue) -> cl_int;
 }
 extern "C" {
@@ -15421,6 +15595,16 @@ extern "C" {
     ) -> cl_mem;
 }
 extern "C" {
+    pub fn clCreatePipe(
+        arg1: cl_context,
+        arg2: cl_mem_flags,
+        arg3: cl_uint,
+        arg4: cl_uint,
+        arg5: *const cl_pipe_properties,
+        arg6: *mut cl_int,
+    ) -> cl_mem;
+}
+extern "C" {
     pub fn clRetainMemObject(arg1: cl_mem) -> cl_int;
 }
 extern "C" {
@@ -15455,6 +15639,15 @@ extern "C" {
     ) -> cl_int;
 }
 extern "C" {
+    pub fn clGetPipeInfo(
+        arg1: cl_mem,
+        arg2: cl_pipe_info,
+        arg3: size_t,
+        arg4: *mut ::std::os::raw::c_void,
+        arg5: *mut size_t,
+    ) -> cl_int;
+}
+extern "C" {
     pub fn clSetMemObjectDestructorCallback(
         arg1: cl_mem,
         arg2: ::std::option::Option<
@@ -15462,6 +15655,24 @@ extern "C" {
         >,
         arg3: *mut ::std::os::raw::c_void,
     ) -> cl_int;
+}
+extern "C" {
+    pub fn clSVMAlloc(
+        arg1: cl_context,
+        arg2: cl_svm_mem_flags,
+        arg3: size_t,
+        arg4: cl_uint,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn clSVMFree(arg1: cl_context, arg2: *mut ::std::os::raw::c_void);
+}
+extern "C" {
+    pub fn clCreateSamplerWithProperties(
+        arg1: cl_context,
+        arg2: *const cl_sampler_properties,
+        arg3: *mut cl_int,
+    ) -> cl_sampler;
 }
 extern "C" {
     pub fn clRetainSampler(arg1: cl_sampler) -> cl_int;
@@ -15505,6 +15716,14 @@ extern "C" {
         arg3: *const cl_device_id,
         arg4: *const ::std::os::raw::c_char,
         arg5: *mut cl_int,
+    ) -> cl_program;
+}
+extern "C" {
+    pub fn clCreateProgramWithIL(
+        arg1: cl_context,
+        arg2: *const ::std::os::raw::c_void,
+        arg3: size_t,
+        arg4: *mut cl_int,
     ) -> cl_program;
 }
 extern "C" {
@@ -15556,6 +15775,23 @@ extern "C" {
     ) -> cl_program;
 }
 extern "C" {
+    pub fn clSetProgramReleaseCallback(
+        arg1: cl_program,
+        arg2: ::std::option::Option<
+            unsafe extern "C" fn(arg1: cl_program, arg2: *mut ::std::os::raw::c_void),
+        >,
+        arg3: *mut ::std::os::raw::c_void,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clSetProgramSpecializationConstant(
+        arg1: cl_program,
+        arg2: cl_uint,
+        arg3: size_t,
+        arg4: *const ::std::os::raw::c_void,
+    ) -> cl_int;
+}
+extern "C" {
     pub fn clUnloadPlatformCompiler(arg1: cl_platform_id) -> cl_int;
 }
 extern "C" {
@@ -15593,6 +15829,9 @@ extern "C" {
     ) -> cl_int;
 }
 extern "C" {
+    pub fn clCloneKernel(arg1: cl_kernel, arg2: *mut cl_int) -> cl_kernel;
+}
+extern "C" {
     pub fn clRetainKernel(arg1: cl_kernel) -> cl_int;
 }
 extern "C" {
@@ -15602,6 +15841,21 @@ extern "C" {
     pub fn clSetKernelArg(
         arg1: cl_kernel,
         arg2: cl_uint,
+        arg3: size_t,
+        arg4: *const ::std::os::raw::c_void,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clSetKernelArgSVMPointer(
+        arg1: cl_kernel,
+        arg2: cl_uint,
+        arg3: *const ::std::os::raw::c_void,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clSetKernelExecInfo(
+        arg1: cl_kernel,
+        arg2: cl_kernel_exec_info,
         arg3: size_t,
         arg4: *const ::std::os::raw::c_void,
     ) -> cl_int;
@@ -15633,6 +15887,18 @@ extern "C" {
         arg4: size_t,
         arg5: *mut ::std::os::raw::c_void,
         arg6: *mut size_t,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clGetKernelSubGroupInfo(
+        arg1: cl_kernel,
+        arg2: cl_device_id,
+        arg3: cl_kernel_sub_group_info,
+        arg4: size_t,
+        arg5: *const ::std::os::raw::c_void,
+        arg6: size_t,
+        arg7: *mut ::std::os::raw::c_void,
+        arg8: *mut size_t,
     ) -> cl_int;
 }
 extern "C" {
@@ -15962,6 +16228,82 @@ extern "C" {
         arg2: cl_uint,
         arg3: *const cl_event,
         arg4: *mut cl_event,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clEnqueueSVMFree(
+        arg1: cl_command_queue,
+        arg2: cl_uint,
+        arg3: *mut *mut ::std::os::raw::c_void,
+        arg4: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: cl_command_queue,
+                arg2: cl_uint,
+                arg3: *mut *mut ::std::os::raw::c_void,
+                arg4: *mut ::std::os::raw::c_void,
+            ),
+        >,
+        arg5: *mut ::std::os::raw::c_void,
+        arg6: cl_uint,
+        arg7: *const cl_event,
+        arg8: *mut cl_event,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clEnqueueSVMMemcpy(
+        arg1: cl_command_queue,
+        arg2: cl_bool,
+        arg3: *mut ::std::os::raw::c_void,
+        arg4: *const ::std::os::raw::c_void,
+        arg5: size_t,
+        arg6: cl_uint,
+        arg7: *const cl_event,
+        arg8: *mut cl_event,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clEnqueueSVMMemFill(
+        arg1: cl_command_queue,
+        arg2: *mut ::std::os::raw::c_void,
+        arg3: *const ::std::os::raw::c_void,
+        arg4: size_t,
+        arg5: size_t,
+        arg6: cl_uint,
+        arg7: *const cl_event,
+        arg8: *mut cl_event,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clEnqueueSVMMap(
+        arg1: cl_command_queue,
+        arg2: cl_bool,
+        arg3: cl_map_flags,
+        arg4: *mut ::std::os::raw::c_void,
+        arg5: size_t,
+        arg6: cl_uint,
+        arg7: *const cl_event,
+        arg8: *mut cl_event,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clEnqueueSVMUnmap(
+        arg1: cl_command_queue,
+        arg2: *mut ::std::os::raw::c_void,
+        arg3: cl_uint,
+        arg4: *const cl_event,
+        arg5: *mut cl_event,
+    ) -> cl_int;
+}
+extern "C" {
+    pub fn clEnqueueSVMMigrateMem(
+        arg1: cl_command_queue,
+        arg2: cl_uint,
+        arg3: *mut *const ::std::os::raw::c_void,
+        arg4: *const size_t,
+        arg5: cl_mem_migration_flags,
+        arg6: cl_uint,
+        arg7: *const cl_event,
+        arg8: *mut cl_event,
     ) -> cl_int;
 }
 extern "C" {

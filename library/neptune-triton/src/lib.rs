@@ -60,6 +60,21 @@ impl Display for FutharkError {
     }
 }
 
+impl std::error::Error for FutharkError {}
+
+impl Display for Error {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        match self {
+            Error::FutharkError(ferr) => write!(f, "{}", ferr),
+            Error::SizeMismatch(actual, expected) => {
+                write!(f, "Size was: {}, expected: {}.", actual, expected)
+            }
+        }
+    }
+}
+
+impl std::error::Error for Error {}
+
 impl FutharkContext {
     pub fn build_tree8_64m(
         &mut self,
@@ -545,7 +560,12 @@ impl FutharkOpaqueP11State {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_p11_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_p11_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -580,7 +600,12 @@ impl FutharkOpaqueP2State {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_p2_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_p2_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -615,7 +640,12 @@ impl FutharkOpaqueP8State {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_p8_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_p8_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -650,7 +680,12 @@ impl FutharkOpaqueS11State {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_s11_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_s11_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -685,7 +720,12 @@ impl FutharkOpaqueS2State {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_s2_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_s2_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -720,7 +760,12 @@ impl FutharkOpaqueS8State {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_s8_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_s8_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 
@@ -758,7 +803,12 @@ impl FutharkOpaqueT864MState {
     }
 
     pub(crate) unsafe fn free_opaque(&mut self) {
-        bindings::futhark_free_opaque_t8_64m_state(self.ctx, self.as_raw_mut());
+        if bindings::futhark_free_opaque_t8_64m_state(self.ctx, self.as_raw_mut()) != 0 {
+            panic!(
+                "Deallocation of object failed, this should not happen \
+                    outside of compiler bugs and driver or hardware malfunction."
+            );
+        }
     }
 }
 

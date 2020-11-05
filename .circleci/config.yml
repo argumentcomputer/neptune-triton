@@ -111,9 +111,9 @@ jobs:
       - run: sudo apt install xz-utils
       - run: mkdir -p futhark
       - run: cd futhark &&
-             curl https://futhark-lang.org/releases/futhark-0.16.2-linux-x86_64.tar.xz --output futhark-0.16.2-linux-x86_64.tar.xz &&
-             tar --xz -xf futhark-0.16.2-linux-x86_64.tar.xz
-      - run: echo 'export PATH="$HOME/example/futhark/futhark-0.16.2-linux-x86_64/bin:$PATH"' >> $BASH_ENV
+             curl https://futhark-lang.org/releases/futhark-0.16.5-linux-x86_64.tar.xz --output futhark-0.16.5-linux-x86_64.tar.xz &&
+             tar --xz -xf futhark-0.16.5-linux-x86_64.tar.xz
+      - run: echo 'export PATH="$HOME/example/futhark/futhark-0.16.5-linux-x86_64/bin:$PATH"' >> $BASH_ENV
       - run: source $BASH_ENV
       - run: cd $HOME/example
       - run: ./verify.sh

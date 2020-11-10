@@ -31,7 +31,6 @@ fn main() {
     }
 
     // OpenCL support
-
     #[cfg(feature = "opencl")]
     {
         #[cfg(not(target_os = "macos"))]
@@ -40,10 +39,19 @@ fn main() {
                 .file("./lib/a.c")
                 .flag("-fPIC")
                 .flag("-std=c99")
-                .flag("-lOpenCL")
                 .shared_flag(true)
                 .compile("a");
             println!("cargo:rustc-link-lib=dylib=OpenCL");
+        }
+        #[cfg(target_os = "macos")]
+        {
+            cc::Build::new()
+                .file("./lib/a.c")
+                .flag("-fPIC")
+                .flag("-std=c99")
+                .shared_flag(true)
+                .compile("a");
+            println!("cargo:rustc-link-lib=framework=OpenCL");
         }
     }
 }

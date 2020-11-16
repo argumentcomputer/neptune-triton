@@ -17,10 +17,10 @@ pub fn main() -> Result<(), Error> {
 }
 
 fn simple_8(n: i32) -> Result<(Vec<u64>, usize), Error> {
-    let mut ctx = FutharkContext::new();
+    let mut ctx = FutharkContext::new()?;
 
     let res_arr = ctx.simple8(n)?;
-    let (vec, shape) = res_arr.to_vec();
+    let (vec, shape) = res_arr.to_vec()?;
     assert_eq!(n as i64, shape[0]);
     let chunk_size = shape[1] as usize;
 

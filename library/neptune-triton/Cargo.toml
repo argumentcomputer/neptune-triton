@@ -1,7 +1,7 @@
 [package]
 name = "neptune-triton"
 description = "GPU implementation of neptune-compatible Poseidon hashing."
-version = "2.0.1"
+version = "2.0.0"
 authors = ["porcuquine@gmail.com"]
 edition = "2018"
 license = "MIT OR Apache-2.0"

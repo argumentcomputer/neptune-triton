@@ -121,11 +121,11 @@ working treen clean').
 Although binary Futhark releases do not print the associated commit in response to the version command, the commit from
 whose content they are built is well-documented. It can be found in the `commit_id` file of the unpacked binary release.
 
-The current version of `neptune_triton` was generated using Futhark v0.16.5, which was itself built from
-commit `663c26104d22d819c92a6b0d93d5ae263bc50c60`. Users who wish to verify the accuracy of the claimed Futhark commit
-may check that commit out of the [Futhark repo](https://github.com/diku-dk/futhark) and build from source. Regenerating
-code with the source-built Futhark should still show no changes from the repository version — except that the commit
-will have been added to `futhark-version.txt` as in the example above.
+The current version of `neptune_triton` was generated using Futhark v0.16.2, which was itself built from commit
+`2cd88bd1b64c1e7d3aebcfa41c3473be845277b7`. Users who wish to verify the accuracy of the claimed Futhark commit may
+check that commit out of the [Futhark repo](https://github.com/diku-dk/futhark) and build from source. Regenerating code
+with the source-built Futhark should still show no changes from the repository version — except that the commit will
+have been added to `futhark-version.txt` as in the example above.
 
 
 ## Verify Generated Code is Safe

@@ -31,7 +31,6 @@ fn main() {
     }
 
     // OpenCL support
-
     #[cfg(feature = "opencl")]
     {
         #[cfg(not(target_os = "macos"))]

@@ -2,6 +2,7 @@ use crate::bindings;
 use crate::traits::*;
 use crate::{Error, Result};
 use std::os::raw::c_int;
+use std::ptr;
 
 pub(crate) trait FutharkType {
     type RustType: Default;
@@ -278,6 +279,9 @@ impl Array_i64_1d {
         let ctx = ctx.into();
         unsafe {
             let ptr = futhark_i64_1d::new(ctx, arr, dim);
+            if ptr == std::ptr::null() {
+                return Err(crate::FutharkError::new(ctx).into());
+            }
             Ok(Array_i64_1d { ptr, ctx })
         }
     }
@@ -356,6 +360,9 @@ impl Array_i64_2d {
         let ctx = ctx.into();
         unsafe {
             let ptr = futhark_i64_2d::new(ctx, arr, dim);
+            if ptr == std::ptr::null() {
+                return Err(crate::FutharkError::new(ctx).into());
+            }
             Ok(Array_i64_2d { ptr, ctx })
         }
     }
@@ -434,6 +441,9 @@ impl Array_u64_1d {
         let ctx = ctx.into();
         unsafe {
             let ptr = futhark_u64_1d::new(ctx, arr, dim);
+            if ptr == std::ptr::null() {
+                return Err(crate::FutharkError::new(ctx).into());
+            }
             Ok(Array_u64_1d { ptr, ctx })
         }
     }
@@ -512,6 +522,9 @@ impl Array_u64_2d {
         let ctx = ctx.into();
         unsafe {
             let ptr = futhark_u64_2d::new(ctx, arr, dim);
+            if ptr == std::ptr::null() {
+                return Err(crate::FutharkError::new(ctx).into());
+            }
             Ok(Array_u64_2d { ptr, ctx })
         }
     }
@@ -590,6 +603,9 @@ impl Array_u64_3d {
         let ctx = ctx.into();
         unsafe {
             let ptr = futhark_u64_3d::new(ctx, arr, dim);
+            if ptr == std::ptr::null() {
+                return Err(crate::FutharkError::new(ctx).into());
+            }
             Ok(Array_u64_3d { ptr, ctx })
         }
     }
